@@ -1,3 +1,5 @@
+import copy
+
 
 class FileReader:
     def __init__(self, ch_sep, bk_sep):
@@ -42,12 +44,19 @@ class ItemCounter:
                 c_id = bname + str(j)
 
                 if cname in self.calias:
-                    cname = self.calias[cname]
+                    character = self.calias[cname]
+                else:
+                    character = copy.deepcopy(cname)
 
-                if cname in complete_chapter_info:
-                    cinfos = complete_chapter_info[cname]
+                def occurence_details():
+                    return {
+                        'ChapterId': c_id,
+                        'ChapterName': cname,
+                        'Character': character,
+                    }
 
-                    cinfos['OccurenceList'].append(c_id)
+                if character in complete_chapter_info:
+                    cinfos = complete_chapter_info[character]
 
                     occurences = cinfos['Occurences']
 
@@ -58,6 +67,7 @@ class ItemCounter:
                     else:
                         occurences.update({bname: 1})
 
+                    cinfos['OccurenceList'].append(occurence_details())
 
                 else:
                     cinfos = {
@@ -65,10 +75,10 @@ class ItemCounter:
                             'Overall': 1,
                             bname: 1,
                             },
-                        'OccurenceList': [c_id]
+                        'OccurenceList': [occurence_details()]
                         }
 
-                    complete_chapter_info.update({cname: cinfos})
+                    complete_chapter_info.update({character: cinfos})
 
         return complete_chapter_info
 
@@ -119,16 +129,20 @@ class ChapterInformationAccess:
                 pr_str += occ_id + ' ' + str(occ) + ' -- '
 
         if details:
-            pr_str += '\n'
-
-            pr_str += '    '
-
             det_occs = cinfo['OccurenceList']
 
             for d in det_occs:
-                pr_str += d + ' -- '
+                pr_str += self.detailstostring(d)
 
         return pr_str
+
+    @staticmethod
+    def detailstostring(occurence_info):
+        cid = occurence_info['ChapterId']
+        cn = occurence_info['ChapterName']
+
+        return '\n    ' + cid + ' as ' + cn
+
 
     def printchapters(self, chapters, sortkey=None, desc=True, limit=False, **printdetails):
 
@@ -159,5 +173,10 @@ class ChapterInformationAccess:
         allchaps = self.info.keys()
 
         self.printchapters(allchaps, sortkey=sortkey, limit=size, desc=head, **printdetails)
+
+    def printone(self, chaptername, books='All'):
+        printdetails = dict(overall=True, books=books, details=True)
+
+        self.printchapters([chaptername], **printdetails)
 
 
