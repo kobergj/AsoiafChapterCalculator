@@ -1,4 +1,5 @@
 import copy
+import Operations.filereaders as fr
 
 
 class FileReader:
@@ -85,15 +86,16 @@ class ItemCounter:
 
 class ChapterCounter:
     def __init__(self, csep, bsep, bnames, calias):
-        self.filereader = FileReader(csep, bsep)
+        self.seps = [bsep, csep]
 
         self.itemcounter = ItemCounter(bnames, calias)
 
     def __call__(self, filename):
-        with open(filename) as file:
-            fileasstring = file.read()
 
-        books = self.filereader(fileasstring)
+        filereader = fr.FileReader(filename)
+
+        with filereader:
+            books = filereader.readtxt(*self.seps)
 
         counted_chapters = self.itemcounter(books)
 
