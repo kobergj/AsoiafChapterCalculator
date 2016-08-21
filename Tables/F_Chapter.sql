@@ -1,11 +1,10 @@
 
-IF OBJECT_ID('[dbo].[F_Chapter]') IS NOT NULL
-    DROP TABLE [dbo].[F_Chapter]
-GO
+DROP TABLE IF EXISTS dbo.F_Chapter;
 
-CREATE TABLE [dbo].[F_Chapter] (
-    [Id]    INT     IDENTITY(1,1)    CONSTRAINT [PK_dbo_F_Chapter] PRIMARY KEY
-    , Name NvarChar(50)
-)
+CREATE TABLE dbo.F_Chapter (
+    Id              SERIAL      PRIMARY KEY
+    , Name          VARCHAR(50) NOT NULL
+    , BookId        INT         NULL        -- Reference to D_Book
+    , CharacterId   INT         NULL        -- Reference to D_Character
 
-GO
+);
