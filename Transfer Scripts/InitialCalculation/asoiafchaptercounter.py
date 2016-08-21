@@ -36,7 +36,7 @@ CHAPTERALIASES = {
     'The Kingbreaker': 'Barristan',
     'The Sacrifice': 'Asha',
     'The Ugly Little Girl': 'Arya',
-    'The Discarded Knight': 'Arys',
+    'The Discarded Knight': 'Barristan',
     'The Lost Lord': 'Jon Connington',
     'The Turncloak': 'Theon',
     'The Spurned Suitor': 'Quentyn'
