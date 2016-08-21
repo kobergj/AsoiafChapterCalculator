@@ -1,6 +1,7 @@
 *.pyc
 sandbox.py
 *.log
+*.yaml
 
 
 ## STANDART PYTHON GITIGNORE ##
