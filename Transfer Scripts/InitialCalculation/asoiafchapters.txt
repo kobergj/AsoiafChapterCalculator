@@ -235,7 +235,7 @@ Cersei
 Jaime
 Brienne
 Sansa
-The Kraken's Daughter
+The Krakens Daughter
 Cersei
 The Soiled Knight
 Brienne
@@ -277,7 +277,7 @@ Daenerys
 Jon
 Bran
 Tyrion
-The Merchant's Man
+The Merchants Man
 Jon
 Tyrion
 Davos
@@ -313,7 +313,7 @@ The Watcher
 Jon
 Tyrion
 The Turncloak
-The King's Prize
+The Kings Prize
 Daenerys
 Jon
 The Blind Girl
@@ -341,6 +341,6 @@ Tyrion
 The Kingbreaker
 The Dragontamer
 Jon
-The Queen's Hand
+The Queens Hand
 Daenerys
 Epilogue

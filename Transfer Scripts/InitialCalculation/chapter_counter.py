@@ -1,5 +1,5 @@
 import copy
-import Operations.filereaders as fr
+import Filereaders.filereaders as fr
 
 
 class FileReader:
@@ -42,7 +42,7 @@ class ItemCounter:
 
             for j, cname in enumerate(booklist[i]):
 
-                c_id = bname + str(j)
+                c_id = str(j)
 
                 if cname in self.calias:
                     character = self.calias[cname]
@@ -54,6 +54,7 @@ class ItemCounter:
                         'ChapterId': c_id,
                         'ChapterName': cname,
                         'Character': character,
+                        'BookName': bname
                     }
 
                 if character in complete_chapter_info:
