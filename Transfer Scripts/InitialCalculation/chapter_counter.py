@@ -1,4 +1,5 @@
 import copy
+import Filereaders.filereaders as fr
 
 
 class FileReader:
@@ -41,7 +42,7 @@ class ItemCounter:
 
             for j, cname in enumerate(booklist[i]):
 
-                c_id = bname + str(j)
+                c_id = str(j)
 
                 if cname in self.calias:
                     character = self.calias[cname]
@@ -53,6 +54,7 @@ class ItemCounter:
                         'ChapterId': c_id,
                         'ChapterName': cname,
                         'Character': character,
+                        'BookName': bname
                     }
 
                 if character in complete_chapter_info:
@@ -85,15 +87,16 @@ class ItemCounter:
 
 class ChapterCounter:
     def __init__(self, csep, bsep, bnames, calias):
-        self.filereader = FileReader(csep, bsep)
+        self.seps = [bsep, csep]
 
         self.itemcounter = ItemCounter(bnames, calias)
 
     def __call__(self, filename):
-        with open(filename) as file:
-            fileasstring = file.read()
 
-        books = self.filereader(fileasstring)
+        filereader = fr.FileReader(filename)
+
+        with filereader:
+            books = filereader.readtxt(*self.seps)
 
         counted_chapters = self.itemcounter(books)
 
