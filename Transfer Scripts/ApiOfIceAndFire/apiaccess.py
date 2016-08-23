@@ -2,6 +2,6 @@ import anapioficeandfire
 
 api = anapioficeandfire.API()
 
-book = api.get_book(id=2)
+house = api.get_house(id=17)
 
-print book.__dict__
+print house.__dict__
