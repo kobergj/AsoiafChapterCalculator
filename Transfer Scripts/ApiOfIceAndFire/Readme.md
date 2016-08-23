@@ -4,7 +4,7 @@ Project to connect Database to ultra-cool [AnApiOfIceAndFire](https://anapiofice
 
 ## Sample Of Character Class:
 ```python
-class character:
+class Character:
     titles = [u"Lord Commander of the Night's Watch"]
     name = u'Jon Snow'
     born = u'In 283 AC'
@@ -30,6 +30,22 @@ class character:
     died = u''
 
     aliases = [u'Lord Snow', u"Ned Stark's Bastard", u'The Snow of Winterfell', u'The Crow-Come-Over', u"The 998th Lord Commander of the Night's Watch", u'The Bastard of Winterfell', u'The Black Bastard of the Wall', u'Lord Crow']
+```
+
+## Sample Of Book Class:
+```python
+class Book:
+    numberOfPages = 768
+    isbn = u'978-0553108033'
+    name = u'A Clash of Kings'
+    publisher= u'Bantam Books'
+    url = u'http://anapioficeandfire.com/api/books/2 
+    country = u'United States'
+    povCharacters = [u'http://anapioficeandfire.com/api/characters/148', ...]
+    mediaType = u'Hardcover'
+    released = u'1999-02-02T00:00:00'
+    api = <anapioficeandfire.api.API object at 0x101a04710>
+    characters = [u'http://anapioficeandfire.com/api/characters/2', ...]
 ```
     
 # License
