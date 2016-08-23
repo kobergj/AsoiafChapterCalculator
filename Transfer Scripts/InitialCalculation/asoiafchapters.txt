@@ -1,346 +1,346 @@
 Prologue
-Bran
-Catelyn
-Daenerys
-Eddard
-Jon
-Catelyn
-Arya
-Bran
-Tyrion
-Jon
-Daenerys
-Eddard
-Tyrion
-Catelyn
-Sansa
-Eddard
-Bran
-Catelyn
-Jon
-Eddard
-Tyrion
-Arya
-Daenerys
-Bran
-Eddard
-Jon
-Eddard
-Catelyn
-Sansa
-Eddard
-Tyrion
-Arya
-Eddard
-Catelyn
-Eddard
-Daenerys
-Bran
-Tyrion
-Eddard
-Catelyn
-Jon
-Tyrion
-Eddard
-Sansa
-Eddard
-Daenerys
-Eddard
-Jon
-Eddard
-Arya
-Sansa
-Jon
-Bran
-Daenerys
-Catelyn
-Tyrion
-Sansa
-Eddard
-Catelyn
-Jon
-Daenerys
-Tyrion
-Catelyn
-Daenerys
-Arya
-Bran
-Sansa
-Daenerys
-Tyrion
-Jon
-Catelyn
-Daenerys
+Bran Stark
+Catelyn Stark
+Daenerys Targaryen
+Eddard Stark
+Jon Snow
+Catelyn Stark
+Arya Stark
+Bran Stark
+Tyrion Lannister
+Jon Snow
+Daenerys Targaryen
+Eddard Stark
+Tyrion Lannister
+Catelyn Stark
+Sansa Stark
+Eddard Stark
+Bran Stark
+Catelyn Stark
+Jon Snow
+Eddard Stark
+Tyrion Lannister
+Arya Stark
+Daenerys Targaryen
+Bran Stark
+Eddard Stark
+Jon Snow
+Eddard Stark
+Catelyn Stark
+Sansa Stark
+Eddard Stark
+Tyrion Lannister
+Arya Stark
+Eddard Stark
+Catelyn Stark
+Eddard Stark
+Daenerys Targaryen
+Bran Stark
+Tyrion Lannister
+Eddard Stark
+Catelyn Stark
+Jon Snow
+Tyrion Lannister
+Eddard Stark
+Sansa Stark
+Eddard Stark
+Daenerys Targaryen
+Eddard Stark
+Jon Snow
+Eddard Stark
+Arya Stark
+Sansa Stark
+Jon Snow
+Bran Stark
+Daenerys Targaryen
+Catelyn Stark
+Tyrion Lannister
+Sansa Stark
+Eddard Stark
+Catelyn Stark
+Jon Snow
+Daenerys Targaryen
+Tyrion Lannister
+Catelyn Stark
+Daenerys Targaryen
+Arya Stark
+Bran Stark
+Sansa Stark
+Daenerys Targaryen
+Tyrion Lannister
+Jon Snow
+Catelyn Stark
+Daenerys Targaryen
 --------
-Arya
-Sansa
-Tyrion
-Bran
-Arya
-Jon
-Catelyn
-Tyrion
-Arya
-Davos
-Theon
-Daenerys
-Jon
-Arya
-Tyrion
-Bran
-Tyrion
-Sansa
-Arya
-Tyrion
-Bran
-Catelyn
-Jon
-Theon
-Tyrion
-Arya
-Daenerys
-Bran
-Tyrion
-Arya
-Catelyn
-Sansa
-Catelyn
-Jon
-Bran
-Tyrion
-Theon
-Arya
-Catelyn
-Daenerys
-Tyrion
-Davos
-Jon
-Tyrion
-Catelyn
-Bran
-Arya
-Daenerys
-Tyrion
-Theon
-Jon
-Sansa
-Jon
-Tyrion
-Catelyn
-Theon
-Sansa
-Davos
-Tyrion
-Sansa
-Tyrion
-Sansa
-Daenerys
-Arya
-Sansa
-Theon
-Tyrion
-Jon
-Bran
+Arya Stark
+Sansa Stark
+Tyrion Lannister
+Bran Stark
+Arya Stark
+Jon Snow
+Catelyn Stark
+Tyrion Lannister
+Arya Stark
+Davos Seaworth
+Theon Greyjoy
+Daenerys Targaryen
+Jon Snow
+Arya Stark
+Tyrion Lannister
+Bran Stark
+Tyrion Lannister
+Sansa Stark
+Arya Stark
+Tyrion Lannister
+Bran Stark
+Catelyn Stark
+Jon Snow
+Theon Greyjoy
+Tyrion Lannister
+Arya Stark
+Daenerys Targaryen
+Bran Stark
+Tyrion Lannister
+Arya Stark
+Catelyn Stark
+Sansa Stark
+Catelyn Stark
+Jon Snow
+Bran Stark
+Tyrion Lannister
+Theon Greyjoy
+Arya Stark
+Catelyn Stark
+Daenerys Targaryen
+Tyrion Lannister
+Davos Seaworth
+Jon Snow
+Tyrion Lannister
+Catelyn Stark
+Bran Stark
+Arya Stark
+Daenerys Targaryen
+Tyrion Lannister
+Theon Greyjoy
+Jon Snow
+Sansa Stark
+Jon Snow
+Tyrion Lannister
+Catelyn Stark
+Theon Greyjoy
+Sansa Stark
+Davos Seaworth
+Tyrion Lannister
+Sansa Stark
+Tyrion Lannister
+Sansa Stark
+Daenerys Targaryen
+Arya Stark
+Sansa Stark
+Theon Greyjoy
+Tyrion Lannister
+Jon Snow
+Bran Stark
 --------
-Jaime
-Catelyn
-Arya
-Tyrion
-Davos
-Sansa
-Jon
-Daenerys
-Bran
-Davos
-Jaime
-Tyrion
-Arya
-Catelyn
-Jon
-Sansa
-Arya
-Samwell
-Tyrion
-Catelyn
-Jaime
-Arya
-Daenerys
-Bran
-Davos
-Jon
-Daenerys
-Sansa
-Arya
-Jon
-Jaime
-Tyrion
-Samwell
-Arya
-Catelyn
-Davos
-Jaime
-Tyrion
-Arya
-Bran
-Jon
-Daenerys
-Arya
-Jaime
-Catelyn
-Samwell
-Arya
-Jon
-Catelyn
-Arya
-Catelyn
-Arya
-Tyrion
-Davos
-Jon
-Bran
-Daenerys
-Tyrion
-Sansa
-Tyrion
-Sansa
-Jaime
-Davos
-Jon
-Arya
-Tyrion
-Jaime
-Sansa
-Jon
-Tyrion
-Daenerys
-Jaime
-Jon
-Arya
-Samwell
-Jon
-Tyrion
-Samwell
-Jon
-Sansa
+Jaime Lannister
+Catelyn Stark
+Arya Stark
+Tyrion Lannister
+Davos Seaworth
+Sansa Stark
+Jon Snow
+Daenerys Targaryen
+Bran Stark
+Davos Seaworth
+Jaime Lannister
+Tyrion Lannister
+Arya Stark
+Catelyn Stark
+Jon Snow
+Sansa Stark
+Arya Stark
+Samwell Tarly
+Tyrion Lannister
+Catelyn Stark
+Jaime Lannister
+Arya Stark
+Daenerys Targaryen
+Bran Stark
+Davos Seaworth
+Jon Snow
+Daenerys Targaryen
+Sansa Stark
+Arya Stark
+Jon Snow
+Jaime Lannister
+Tyrion Lannister
+Samwell Tarly
+Arya Stark
+Catelyn Stark
+Davos Seaworth
+Jaime Lannister
+Tyrion Lannister
+Arya Stark
+Bran Stark
+Jon Snow
+Daenerys Targaryen
+Arya Stark
+Jaime Lannister
+Catelyn Stark
+Samwell Tarly
+Arya Stark
+Jon Snow
+Catelyn Stark
+Arya Stark
+Catelyn Stark
+Arya Stark
+Tyrion Lannister
+Davos Seaworth
+Jon Snow
+Bran Stark
+Daenerys Targaryen
+Tyrion Lannister
+Sansa Stark
+Tyrion Lannister
+Sansa Stark
+Jaime Lannister
+Davos Seaworth
+Jon Snow
+Arya Stark
+Tyrion Lannister
+Jaime Lannister
+Sansa Stark
+Jon Snow
+Tyrion Lannister
+Daenerys Targaryen
+Jaime Lannister
+Jon Snow
+Arya Stark
+Samwell Tarly
+Jon Snow
+Tyrion Lannister
+Samwell Tarly
+Jon Snow
+Sansa Stark
 Epilogue
 --------
 Prologue
 The Prophet
 The Captain Of Guards
-Cersei
-Brienne
-Samwell
-Arya
-Cersei
-Jaime
-Brienne
-Sansa
+Cersei Lannister
+Brienne Tarth
+Samwell Tarly
+Arya Stark
+Cersei Lannister
+Jaime Lannister
+Brienne Tarth
+Sansa Stark
 The Krakens Daughter
-Cersei
+Cersei Lannister
 The Soiled Knight
-Brienne
-Samwell
-Jaime
-Cersei
+Brienne Tarth
+Samwell Tarly
+Jaime Lannister
+Cersei Lannister
 The Iron Captain
 The Drowned Man
-Brienne
+Brienne Tarth
 The Queenmaker
-Arya
+Arya Stark
 Alayne
-Cersei
-Brienne
-Samwell
-Jaime
-Cersei
+Cersei Lannister
+Brienne Tarth
+Samwell Tarly
+Jaime Lannister
+Cersei Lannister
 The Reaver
-Jaime
-Brienne
-Cersei
-Jaime
+Jaime Lannister
+Brienne Tarth
+Cersei Lannister
+Jaime Lannister
 Cat Of The Canals
-Samwell
-Cersei
-Brienne
-Jaime
-Cersei
+Samwell Tarly
+Cersei Lannister
+Brienne Tarth
+Jaime Lannister
+Cersei Lannister
 The Princess In The Tower
 Alayne
-Brienne
-Cersei
-Jaime
-Samwell
+Brienne Tarth
+Cersei Lannister
+Jaime Lannister
+Samwell Tarly
 --------
 Prologue
-Tyrion
-Daenerys
-Jon
-Bran
-Tyrion
+Tyrion Lannister
+Daenerys Targaryen
+Jon Snow
+Bran Stark
+Tyrion Lannister
 The Merchants Man
-Jon
-Tyrion
-Davos
-Jon
-Daenerys
+Jon Snow
+Tyrion Lannister
+Davos Seaworth
+Jon Snow
+Daenerys Targaryen
 Reek
-Bran
-Tyrion
-Davos
-Daenerys
-Jon
-Tyrion
-Davos
+Bran Stark
+Tyrion Lannister
+Davos Seaworth
+Daenerys Targaryen
+Jon Snow
+Tyrion Lannister
+Davos Seaworth
 Reek
-Jon
-Tyrion
-Daenerys
+Jon Snow
+Tyrion Lannister
+Daenerys Targaryen
 The Lost Lord
 The Windblown
 The Wayward Bride
-Tyrion
-Jon
-Davos
-Daenerys
+Tyrion Lannister
+Jon Snow
+Davos Seaworth
+Daenerys Targaryen
 Melisandre
 Reek
-Tyrion
-Bran
-Jon
-Daenerys
+Tyrion Lannister
+Bran Stark
+Jon Snow
+Daenerys Targaryen
 The Prince of Winterfell
 The Watcher
-Jon
-Tyrion
+Jon Snow
+Tyrion Lannister
 The Turncloak
 The Kings Prize
-Daenerys
-Jon
+Daenerys Targaryen
+Jon Snow
 The Blind Girl
 A Ghost in Winterfell
-Tyrion
-Jaime
-Jon
-Daenerys
-Theon
-Daenerys
-Jon
-Cersei
+Tyrion Lannister
+Jaime Lannister
+Jon Snow
+Daenerys Targaryen
+Theon Greyjoy
+Daenerys Targaryen
+Jon Snow
+Cersei Lannister
 The Queensguard
 The Iron Suitor
-Tyrion
-Jon
+Tyrion Lannister
+Jon Snow
 The Discarded Knight
 The Spurned Suitor
 The Griffin Reborn
 The Sacrifice
-Victarion
+Victarion Greyjoy
 The Ugly Little Girl
-Cersei
-Tyrion
+Cersei Lannister
+Tyrion Lannister
 The Kingbreaker
 The Dragontamer
-Jon
+Jon Snow
 The Queens Hand
-Daenerys
+Daenerys Targaryen
 Epilogue
