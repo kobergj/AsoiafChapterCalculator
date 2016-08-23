@@ -30,7 +30,7 @@ class character:
     died = u''
 
     aliases = [u'Lord Snow', u"Ned Stark's Bastard", u'The Snow of Winterfell', u'The Crow-Come-Over', u"The 998th Lord Commander of the Night's Watch", u'The Bastard of Winterfell', u'The Black Bastard of the Wall', u'Lord Crow']
-    ```
+```
     
 # License
 The A Song of Ice And Fire series and its data is the property of [George R.R. Martin](http://www.georgerrmartin.com/). The data is used without claim of ownership.
