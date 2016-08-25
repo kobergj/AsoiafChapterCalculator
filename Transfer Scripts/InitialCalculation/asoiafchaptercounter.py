@@ -1,6 +1,6 @@
 import chapter_counter as cc
 
-FILENAME = 'asoiafchapters.txt'
+FILENAME = 'InitialCalculation/asoiafchapters.txt'
 
 CHAPTERSEPERATOR = '\n'
 BOOKSEPERATOR = '--------'
@@ -8,38 +8,38 @@ BOOKSEPERATOR = '--------'
 BOOKNAMES = ['GameOfThrones', 'ClashOfKings', 'StormOfSwords', 'FeastForCrows', 'DanceWithDragons']
 
 CHAPTERALIASES = {
-    'The Iron Captain': 'Victarion',
-    'Alayne': 'Sansa',
-    'Reek': 'Theon',
-    "The Krakens Daughter": 'Asha',
-    'The Drowned Man': 'Aeron',
-    'The Prophet': 'Aeron',
-    'The Reaver': 'Victarion',
-    'The Soiled Knight': 'Arys',
-    'The Captain Of Guards': 'Areo',
-    'The Queenmaker': 'Arianne',
-    'The Princess In The Tower': 'Arianne',
-    'Cat Of The Canals': 'Arya',
-    'The Windblown': 'Quentyn',
-    'The Blind Girl': 'Arya',
-    "The Queens Hand": 'Barristan',
-    'The Iron Suitor': 'Victarion',
-    'The Wayward Bride': 'Asha',
-    'The Prince of Winterfell': 'Theon',
-    'The Dragontamer': 'Quentyn',
-    "The Kings Prize": 'Asha',
-    'A Ghost in Winterfell': 'Theon',
-    'The Queensguard': 'Barristan',
-    'The Watcher': 'Areo',
-    "The Merchants Man": 'Quentyn',
+    'The Iron Captain': 'Victarion Greyjoy',
+    'Alayne': 'Sansa Stark',
+    'Reek': 'Theon Greyjoy',
+    "The Krakens Daughter": 'Asha Greyjoy',
+    'The Drowned Man': 'Aeron Greyjoy',
+    'The Prophet': 'Aeron Greyjoy',
+    'The Reaver': 'Victarion Greyjoy',
+    'The Soiled Knight': 'Arys Oakheart',
+    'The Captain Of Guards': 'Areo Hotah',
+    'The Queenmaker': 'Arianne Martell',
+    'The Princess In The Tower': 'Arianne Martell',
+    'Cat Of The Canals': 'Arya Stark',
+    'The Windblown': 'Quentyn Martell',
+    'The Blind Girl': 'Arya Stark',
+    "The Queens Hand": 'Barristan Selmy',
+    'The Iron Suitor': 'Victarion Greyjoy',
+    'The Wayward Bride': 'Asha Greyjoy',
+    'The Prince of Winterfell': 'Theon Greyjoy',
+    'The Dragontamer': 'Quentyn Martell',
+    "The Kings Prize": 'Asha Greyjoy',
+    'A Ghost in Winterfell': 'Theon Greyjoy',
+    'The Queensguard': 'Barristan Selmy',
+    'The Watcher': 'Areo Hotah',
+    "The Merchants Man": 'Quentyn Martell',
     'The Griffin Reborn': 'Jon Connington',
-    'The Kingbreaker': 'Barristan',
-    'The Sacrifice': 'Asha',
-    'The Ugly Little Girl': 'Arya',
-    'The Discarded Knight': 'Barristan',
+    'The Kingbreaker': 'Barristan Selmy',
+    'The Sacrifice': 'Asha Greyjoy',
+    'The Ugly Little Girl': 'Arya Stark',
+    'The Discarded Knight': 'Barristan Selmy',
     'The Lost Lord': 'Jon Connington',
-    'The Turncloak': 'Theon',
-    'The Spurned Suitor': 'Quentyn'
+    'The Turncloak': 'Theon Greyjoy',
+    'The Spurned Suitor': 'Quentyn Martell'
     }
 
 PASSWORD = 'WinterIsHere'

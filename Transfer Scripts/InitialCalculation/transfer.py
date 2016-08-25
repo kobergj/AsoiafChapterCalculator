@@ -19,7 +19,13 @@ class CharacterToDatabase:
 
             bookid = con(book)
 
-            char = qg.Character(chapterinfo['Character'])
+            try:
+                firstname, surname = chapterinfo['Character'].split(' ')
+            except ValueError:
+                firstname = chapterinfo['Character']
+                surname = ''
+
+            char = qg.Character(firstname, surname)
 
             charid = con(char)
 

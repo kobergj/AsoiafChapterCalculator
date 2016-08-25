@@ -13,8 +13,8 @@ class Connection:
 
         result = cur.fetchall()
 
-        primId = result[0][0]
-
         self.conn.commit()
 
-        return primId
+        if result:
+            primId = result[0][0]
+            return primId
