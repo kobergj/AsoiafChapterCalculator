@@ -1,52 +1,52 @@
 # TODO: Move to config
 QUERYTEMPLATE = """
-        INSERT INTO %(tablename)s (name)
+        INSERT INTO dbo."%(tablename)s" (name)
         SELECT '%(name)s'
         WHERE NOT EXISTS (
             SELECT 1 
-            FROM %(tablename)s tb 
+            FROM "%(tablename)s" tb 
             WHERE tb.name = '%(name)s'
         );
 
         SELECT id 
-        FROM %(tablename)s
+        FROM dbo."%(tablename)s"
         WHERE name = '%(name)s'
         """
 
 CHARACTERQUERYTEMPLATE = """
-        /*INSERT INTO dbo.D_Character (firstname, surname, gender, yearofbirth, yearofdeath)
+        INSERT INTO dbo."D_Character" (firstname, surname, gender, yearofbirth, yearofdeath)
         SELECT '%(firstname)s', '%(surname)s', '%(gender)s', '%(born)s', '%(died)s'
         WHERE NOT EXISTS (
             SELECT 1 
-            FROM dbo.D_Character ch
+            FROM dbo."D_Character" ch
             WHERE ch.firstname = '%(firstname)s'
               AND ch.surname = '%(surname)s'
         );
-        */
-        UPDATE dbo.D_Character ch
+        
+        UPDATE dbo."D_Character" ch
             SET
                 gender = '%(gender)s'
                 , yearofbirth = %(born)i
                 , yearofdeath = %(died)i
             
             WHERE ch.firstname = '%(firstname)s'
-              AND ch.surname = '%(surname)s'
+              AND ch.surname = '%(surname)s';
 
-            RETURNING ch.id;
-        /*
+            /*RETURNING ch.id;*/
+
         SELECT id 
-        FROM dbo.D_Character
+        FROM dbo."D_Character"
         WHERE firstname = '%(firstname)s'
           AND surname = '%(surname)s'
-        */
+        
         """
 
 CHAPTERQUERYTEMPLATE = """
-        INSERT INTO %(tablename)s (name, bookid, characterid, chapternumber)
+        INSERT INTO dbo."%(tablename)s" (name, bookid, characterid, chapternumber)
         SELECT '%(name)s', '%(bookid)s', '%(characterid)s', '%(chapternumber)s'
         WHERE NOT EXISTS (
             SELECT 1 
-            FROM %(tablename)s tb 
+            FROM "%(tablename)s" tb 
             WHERE tb.name = '%(name)s'
               AND tb.bookid = %(bookid)s
               AND tb.chapternumber = %(chapternumber)s
@@ -62,7 +62,7 @@ class Querygenerator:
         return query
 
 class Book(Querygenerator):
-    tablename = 'dbo.D_Book'
+    tablename = 'D_Book'
 
     def __init__(self, bname):
         self.name = bname
@@ -91,7 +91,7 @@ class Character(Querygenerator):
 
 
 class Chapter(Querygenerator):
-    tablename = 'dbo.F_Chapter'
+    tablename = 'F_Chapter'
 
     def __init__(self, cname, bid, cid, cnum):
         self.name = cname

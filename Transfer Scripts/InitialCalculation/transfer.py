@@ -1,41 +1,58 @@
-import sys
+import datetime
 
 import Connections.postgresconn as conn
-import QueryGenerators.querygenerators as qg
+import QueryGenerators.instaging as qg
 
 import initdb as source
 
 DBNAME = 'AsoiafDWH'
 
-class CharacterToDatabase:
-    def __init__(self, uid, pwd):
-        self.connection = conn.Connection(DBNAME, uid, pwd)
+def parseChapter(chapterinfo):
+    valuedict = {}
+    try:
+        valuedict["charfirstname"], valuedict["charsurname"] = chapterinfo['Character'].split(' ')
+    except ValueError:
+        valuedict["charfirstname"] = chapterinfo['Character']
+        valuedict["charsurname"] = ''
+
+    valuedict["bookname"] = chapterinfo['BookName']
+
+    valuedict["chaptername"] = chapterinfo['ChapterName']
+    valuedict["chapternumber"] = chapterinfo['ChapterId']
+
+    return valuedict
+
+
+
+class ChapterToStaging:
+    def __init__(self, uid=None, pwd=None):
+        self.connection = conn.StagingConnection(DBNAME, uid, pwd)
+        self.querygenerator = qg.StagingLoader("charinchapter")
 
     def __call__(self, cinfo):
-        con = self.connection
-
         for chapterinfo in cinfo['OccurenceList']:
-            book = qg.Book(chapterinfo['BookName'])
+            values = parseChapter(chapterinfo)
+            query = self.querygenerator(insertiontime=datetime.datetime.now(), **values)
 
-            bookid = con(book)
+            self.connection(query)
 
-            try:
-                firstname, surname = chapterinfo['Character'].split(' ')
-            except ValueError:
-                firstname = chapterinfo['Character']
-                surname = ''
+            # try:
+            #     firstname, surname = chapterinfo['Character'].split(' ')
+            # except ValueError:
+            #     firstname = chapterinfo['Character']
+            #     surname = ''
 
-            char = qg.Character(firstname, surname)
+            # char = qg.Character(firstname, surname)
 
-            charid = con(char)
+            # charid = con(char)
 
-            chap = qg.Chapter(chapterinfo['ChapterName'], bookid, charid, chapterinfo['ChapterId'])
+            # chap = qg.Chapter(chapterinfo['ChapterName'], bookid, charid, chapterinfo['ChapterId'])
 
-            con(chap)
+            # con(chap)
 
 if __name__ == '__main__':
-    uid, pwd = sys.argv[1:3]
-    dest = CharacterToDatabase(uid, pwd)
+    # uid, pwd = sys.argv[1:3]
+    dest = ChapterToStaging() #uid, pwd)
 
     for _, info in source.db.info.iteritems():
         dest(info)

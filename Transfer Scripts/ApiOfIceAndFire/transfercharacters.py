@@ -1,49 +1,75 @@
 import sys
-import os
+import datetime
 import anapioficeandfire
 
-os.chdir('/Users/Kokweazel/AsoiafDWH')
+# os.chdir('/Users/Kokweazel/AsoiafDWH')
 
 import Connections.postgresconn as pc
-import QueryGenerators.querygenerators as qg
+# import QueryGenerators.querygenerators as qg
+import QueryGenerators.instaging as sta
 
-class CharacterParser:
-    def __init__(self, db, uid, pwd):
-        self.connection = pc.Connection(db, uid, pwd)
+def parseCharacter(apicharacter):
+    valuedict = {}
 
-        self.api = anapioficeandfire.API()
+    try:
+        valuedict['firstname'], valuedict['surname'] = apicharacter.name.split(' ')
+    except ValueError:
+        return {}
 
-    def __call__(self, charactername):
-        characters = self.api.get_characters(page=charactername)
+    if apicharacter.gender:
+        valuedict['gender'] = apicharacter.gender
 
-        if not characters:
+    born = ''.join(i for i in apicharacter.born if i.isdigit())
+
+    if born:
+        valuedict['born'] = int(born) 
+
+    died = ''.join(i for i in apicharacter.died if i.isdigit())
+
+    if died:
+        valuedict['died'] = int(died)
+
+    return valuedict
+
+
+class ApiDocumentToDatabase:
+    def __init__(self, getter, mapper, querygenerator, storer):
+        self.getter = getter
+        self.mapper = mapper
+        self.querygenerator = querygenerator
+        self.storer = storer
+
+    def __call__(self, index):
+        page = self.getter(page=index)
+
+        if not page:
             return
 
-        for char in characters:
+        for document in page:
+            values = self.mapper(document)
 
-            try:
-                firstname, surname = char.name.split(' ')
-            except ValueError:
-                continue
+            query = self.querygenerator(insertiontime=datetime.datetime.now(), **values)
 
-            gender = char.gender
-
-            born = ''.join(i for i in char.born if i.isdigit())
-
-            died = ''.join(i for i in char.died if i.isdigit())
-
-            querygenerator = qg.Character(firstname, surname, gender, born, died)
-
-            self.connection(querygenerator)
+            self.storer(query)
 
         return True
 
-if __name__ == '__main__':
-    uid, pwd = sys.argv[1:3]
-    char_parser = CharacterParser('AsoiafDWH', uid, pwd)
 
-    for i in range(1, 300):
-        success = char_parser(i)
+def TransferCharacterPages(*pagenumbers):
+    uid, pwd = sys.argv[1:3]
+
+    etl = ApiDocumentToDatabase(
+            getter=anapioficeandfire.API().get_characters, 
+            mapper=parseCharacter,
+            querygenerator=sta.StagingLoader("character"),
+            storer=pc.StagingConnection("AsoiafDWH", uid, pwd)
+        )
+
+    for i in range(*pagenumbers):
+        success = etl(i)
 
         if not success:
-            break
+            return
+
+if __name__ == '__main__':
+    TransferCharacterPages(17, 40)
