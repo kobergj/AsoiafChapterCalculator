@@ -8,7 +8,10 @@ class YamlGetter(bsc.BasicGetter):
             yamlfile = yaml.load(opened)
 
         def getinfo(key=None):
+            if key:
                 return yamlfile[key]
+
+            return yamlfile
 
         return getinfo
 

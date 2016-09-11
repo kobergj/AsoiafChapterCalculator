@@ -1,23 +1,32 @@
 
+def mapCharacters(charlist):
+    values = []
+    for char in charlist:
+        vallist = mapCharacter(char)
+        if vallist:
+            values.append(vallist)
+
+    return values
+
 def mapCharacter(apicharacter):
-    valuedict = {}
+    values = [None, None, None, None, None]
 
     try:
-        valuedict['firstname'], valuedict['surname'] = apicharacter.name.split(' ')
+        values[0], values[1] = apicharacter.name.split(' ')
     except ValueError:
-        return {}
+        pass
 
     if apicharacter.gender:
-        valuedict['gender'] = apicharacter.gender
+        values[2] = apicharacter.gender
 
     born = ''.join(i for i in apicharacter.born if i.isdigit())
 
     if born:
-        valuedict['born'] = int(born) 
+        values[3] = int(born) 
 
     died = ''.join(i for i in apicharacter.died if i.isdigit())
 
     if died:
-        valuedict['died'] = int(died)
+        values[4] = int(died)
 
-    return valuedict
+    return values
