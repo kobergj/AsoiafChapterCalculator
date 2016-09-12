@@ -8,5 +8,4 @@ CREATE TABLE prod."D_Chapter" (
     , "ChapterOfBookNumber" INT         NOT NULL        -- Number if Chapter in Book
     -- Descriptives
     , "Name"                VARCHAR(50) NULL
-    , "MainCharacterId"     INT         NULL            -- Reference to D_Character
 );

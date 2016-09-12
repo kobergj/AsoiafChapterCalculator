@@ -29,12 +29,14 @@ INSERT INTO prod."D_Character" ("FirstName", "SurName")
         staging."charinchapter"
     )
 
-/* InsertNewChapters */
-UPDATE prod."D_Chapter"
-    SET
-        "MainCharacterId" = COALESCE(ch."Id", "MainCharacterId")
+/* InsertNewCharacters */
+INSERT INTO prod."F_EventInChapter" ("ChapterId", "MainCharacterId")
+    SELECT DISTINCT
+        chp."Id"
+        , cha."Id"
     FROM LastLoaded sta
-    LEFT JOIN prod."D_Character" ch ON ch."FirstName" = sta."charfirstname"
-                                    AND ch."SurName" = sta."charsurname"
+    LEFT JOIN prod."D_Character" cha ON cha."FirstName" = sta."charfirstname"
+                                    AND cha."SurName" = sta."charsurname"
+    INNER JOIN prod."D_Chapter" chp ON chp."Name" = sta."chapname"
+
     WHERE sta."rn" = 1
-      AND "Name" = sta."chapname"
