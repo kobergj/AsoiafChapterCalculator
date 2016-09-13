@@ -7,17 +7,17 @@ class InsertQuery:
         self.tablename = tablename
 
     def __call__(self, *args):
-        stagingtable = sql.T(self.tablename)
+        insert_table = sql.T(self.tablename)
 
-        query = sql.Q().tables(stagingtable)
+        query = sql.Q().tables(insert_table)
 
-        kwargs = self.generate_kwargs(*args)
+        colnames = self.add_column_names(*args)
 
-        query = query.insert(kwargs,)
+        insertquery = query.insert(colnames,)
 
-        return query
+        return insertquery
 
-    def generate_kwargs(self, *args):
+    def add_column_names(self, *args):
         return
 
 
@@ -25,11 +25,11 @@ class InsertCharInChapter(InsertQuery):
     def __init__(self):
         InsertQuery.__init__(self, "charinchapter")
 
-    def generate_kwargs(self, chapname, charfirst, charsur):
+    def add_column_names(self, charinchapmodel):
         return {
-            "charfirstname": charfirst,
-            "charsurname": charsur,
-            "chapname": chapname,
+            "charfirstname": charinchapmodel.charfirstname,
+            "charsurname": charinchapmodel.charsurname,
+            "chapname": charinchapmodel.chaptername,
             'insertiontime': datetime.datetime.now()
         }
 
@@ -37,11 +37,11 @@ class InsertChapter(InsertQuery):
     def __init__(self):
         InsertQuery.__init__(self, "chapter")
 
-    def generate_kwargs(self, chapname, chapnum, bname):
+    def add_column_names(self, chaptermodel):
         return {
-            "chaptername": chapname,
-            "chapternumber": chapnum,
-            "bookname": bname,
+            "chaptername": chaptermodel.name,
+            "chapternumber": chaptermodel.number,
+            "bookname": chaptermodel.bookname,
             'insertiontime': datetime.datetime.now()
         }
 
@@ -49,20 +49,20 @@ class InsertCharacter(InsertQuery):
     def __init__(self):
         InsertQuery.__init__(self, "character")
 
-    def generate_kwargs(self, charfirst, charsur, gender, born, died):
-        keydict = {
-            "firstname": charfirst,
-            "surname": charsur,
+    def add_column_names(self, charactermodel):
+        return {
+            "firstname": charactermodel.firstname,
+            "surname": charactermodel.surname,
+            "culture": charactermodel.culture,
+            "fatherfirst": charactermodel.fatherfirst,
+            "fathersur": charactermodel.fathersur,
+            "motherfirst": charactermodel.motherfirst,
+            "mothersur": charactermodel.mothersur,
+            "spousefirst": charactermodel.spousefirst,
+            "spousesur": charactermodel.spousesur,
+            "gender": charactermodel.gender,
+            "born": charactermodel.born,
+            "died": charactermodel.died,
+
             'insertiontime': datetime.datetime.now()
             }
-
-        if gender:
-            keydict.update({"gender": gender})
-        
-        if born:
-            keydict.update({"born": born})
-
-        if died:
-            keydict.update({"died": died})
-
-        return keydict

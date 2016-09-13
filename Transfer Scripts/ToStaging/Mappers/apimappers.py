@@ -1,32 +1,64 @@
+import basicmappers as bsc
 
-def mapCharacters(charlist):
-    values = []
-    for char in charlist:
-        vallist = mapCharacter(char)
-        if vallist:
-            values.append(vallist)
+def map_charname(charcomplete):
+    nameparts = charcomplete.split(' ')
 
-    return values
+    if len(nameparts) == 1:
+        return None, None
 
-def mapCharacter(apicharacter):
-    values = [None, None, None, None, None]
+    if len(nameparts) == 2:
+        return nameparts[0], nameparts[1]
 
-    try:
-        values[0], values[1] = apicharacter.name.split(' ')
-    except ValueError:
-        pass
+    if len(nameparts) == 3:
+        return nameparts[0] + ' ' + nameparts[1], nameparts[2]
 
-    if apicharacter.gender:
-        values[2] = apicharacter.gender
+    return ' '.join(nameparts), ''
 
-    born = ''.join(i for i in apicharacter.born if i.isdigit())
+def map_date(rawdate):
+    date = ''.join(i for i in rawdate if i.isdigit())
 
-    if born:
-        values[3] = int(born) 
+    if not date:
+        return None
 
-    died = ''.join(i for i in apicharacter.died if i.isdigit())
+    if len(date) <= 3:
+        return int(date)
 
-    if died:
-        values[4] = int(died)
+    if len(date) <= 5:
+        return (int(date[:2]) + int(date[2:])) / 2
 
-    return values
+    if len(date) == 6:
+        return (int(date[:3]) + int(date[3:])) / 2
+
+    return int(date)
+
+def map_asis(rawstring):
+    if not rawstring:
+        return None
+
+    return rawstring
+
+class CharacterMapper(bsc.Mapper):
+    def __call__(self, charlist):
+        values = []
+        for char in charlist:
+            vallist = self.mapCharacter(char)
+            if vallist:
+                values.append(vallist)
+
+        return values
+
+    def mapCharacter(self, apicharacter):
+        first, sur = map_charname(apicharacter.name)
+        
+        gender = map_asis(apicharacter.gender)
+        born = map_date(apicharacter.born)
+        died = map_date(apicharacter.died)
+
+        culture = map_asis(apicharacter.culture)
+
+        fatherfirst, fathersur = map_charname(apicharacter.father)
+        motherfirst, mothersur = map_charname(apicharacter.mother)
+        spousefirst, spousesur = map_charname(apicharacter.spouse)
+
+        return self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
+            fathersur, motherfirst, mothersur, spousefirst, spousesur)
