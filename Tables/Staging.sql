@@ -6,6 +6,13 @@ CREATE TABLE staging."character" (
     , "gender"          VARCHAR(10)     NULL
     , "born"            INTEGER         NULL
     , "died"            INTEGER         NULL
+    , "culture"         VARCHAR(50)     NULL
+    , "fatherfirst"     VARCHAR(50)     NULL
+    , "fathersur"       VARCHAR(50)     NULL
+    , "motherfirst"     VARCHAR(50)     NULL
+    , "mothersur"       VARCHAR(50)     NULL
+    , "spousefirst"     VARCHAR(50)     NULL
+    , "spousesur"       VARCHAR(50)     NULL
     , "insertiontime"   TIMESTAMP       NOT NULL
 );
 

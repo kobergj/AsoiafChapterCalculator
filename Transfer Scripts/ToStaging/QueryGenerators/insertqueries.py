@@ -53,6 +53,13 @@ class InsertCharacter(InsertQuery):
         keydict = {
             "firstname": charactermodel.firstname,
             "surname": charactermodel.surname,
+            "culture": charactermodel.culture,
+            "fatherfirst": charactermodel.fatherfirst,
+            "fathersur": charactermodel.fathersur,
+            "motherfirst": charactermodel.motherfirst,
+            "mothersur": charactermodel.mothersur,
+            "spousefirst": charactermodel.spousefirst,
+            "spousesur": charactermodel.spousesur,
             'insertiontime': datetime.datetime.now()
             }
 
