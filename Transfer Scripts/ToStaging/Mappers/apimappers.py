@@ -20,8 +20,14 @@ def map_date(rawdate):
     if not date:
         return None
 
+    if len(date) <= 3:
+        return int(date)
+
+    if len(date) <= 5:
+        return (int(date[:2]) + int(date[2:])) / 2
+
     if len(date) == 6:
-        return (int(date[:3]) + int(date[3:]))/2
+        return (int(date[:3]) + int(date[3:])) / 2
 
     return int(date)
 
