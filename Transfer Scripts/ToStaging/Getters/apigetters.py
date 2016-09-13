@@ -13,29 +13,30 @@ class ApiCharacterGetter(bsc.BasicGetter):
 
         clist = []
         for char in chars:
-            clist.append(self.parseCharacter(char))
+            cmod = self.parseCharacter(char)
+            clist.append(cmod)
 
         return clist
 
     def parseCharacter(self, rawchar):
-        name = rawchar['name']
+        name = rawchar.name
         
-        gender = rawchar['gender']
+        gender = rawchar.gender
         
-        born = rawchar['born']
-        died = rawchar['died']
+        born = rawchar.born
+        died = rawchar.died
 
-        culture = rawchar['culture']
+        culture = rawchar.culture
 
-        father = self.getCharName(rawchar['father'])
-        mother = self.getCharName(rawchar['mother'])
-        spouse = self.getCharName(rawchar['spouse'])
+        father = self.getCharName(rawchar.father)
+        mother = self.getCharName(rawchar.mother)
+        spouse = self.getCharName(rawchar.spouse)
 
         return self.charmodel(name, gender, born, died, culture, father, mother, spouse)
 
     def getCharName(self, url):
         if not url:
-            return
+            return ''
 
         charId = int(''.join(i for i in url if i.isdigit()))
 

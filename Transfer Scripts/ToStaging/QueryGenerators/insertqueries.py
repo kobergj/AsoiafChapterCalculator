@@ -50,7 +50,7 @@ class InsertCharacter(InsertQuery):
         InsertQuery.__init__(self, "character")
 
     def add_column_names(self, charactermodel):
-        keydict = {
+        return {
             "firstname": charactermodel.firstname,
             "surname": charactermodel.surname,
             "culture": charactermodel.culture,
@@ -60,16 +60,9 @@ class InsertCharacter(InsertQuery):
             "mothersur": charactermodel.mothersur,
             "spousefirst": charactermodel.spousefirst,
             "spousesur": charactermodel.spousesur,
+            "gender": charactermodel.gender,
+            "born": charactermodel.born,
+            "died": charactermodel.died,
+
             'insertiontime': datetime.datetime.now()
             }
-
-        if charactermodel.gender:
-            keydict.update({"gender": charactermodel.gender})
-        
-        if charactermodel.born:
-            keydict.update({"born": charactermodel.born})
-
-        if charactermodel.died:
-            keydict.update({"died": charactermodel.died})
-
-        return keydict

@@ -9,7 +9,10 @@ def map_charname(charcomplete):
     if len(nameparts) == 2:
         return nameparts[0], nameparts[1]
 
-    return ' '.join(nameparts[:-1]), nameparts[-1]
+    if len(nameparts) == 3:
+        return nameparts[0] + ' ' + nameparts[1], nameparts[2]
+
+    return ' '.join(nameparts), ''
 
 def map_date(rawdate):
     date = ''.join(i for i in rawdate if i.isdigit())

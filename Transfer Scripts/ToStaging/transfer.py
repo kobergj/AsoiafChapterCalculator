@@ -63,7 +63,7 @@ def TransferCharInChapter(filepath):
     etl()
 
 if __name__=='__main__':
-    TransferCharactersFromApi(*range(1, 100))
+    TransferCharactersFromApi(*range(10, 20))
     #TransferChapterNumbers("/Users/Kokweazel/Documents/AsoiafYamls/chapternames.yaml")
     #TransferCharInChapter("/Users/Kokweazel/Documents/AsoiafYamls/maincharacters.yaml")
 
