@@ -1,9 +1,18 @@
 /* Insert new Characters */
-INSERT INTO prod."D_Character" ("FirstName", "SurName") 
+WITH characters as (
     SELECT
+        sta."firstname"   as firstname, sta."surname"   as surname UNION ALL
+        sta."fatherfirst" as firstname, sta."fathersur" as surname UNION ALL
+        sta."motherfirst" as firstname, sta."mothersur" as surname UNION ALL
+        sta."spousefirst" as firstname, sta."spousesur" as surname
+    FROM staging."character" sta
+)
+
+INSERT INTO prod."D_Character" ("FirstName", "SurName") 
+    SELECT DISTINCT
         sta."firstname"
         , sta."surname"
-    FROM staging."character" sta
+    FROM characters sta
 
     WHERE sta."firstname" IS NOT NULL
       AND sta."surname" IS NOT NULL
@@ -17,14 +26,11 @@ INSERT INTO prod."D_Character" ("FirstName", "SurName")
 /* Extract Newest Lines */
 WITH lastloaded as (
     SELECT
-        sta."firstname"
-        , sta."surname"
-        , max(sta."insertiontime") as insertiontime
+        *
+        , ROW_NUMBER() OVER (PARTITION BY ("firstname", "surname")
+                             ORDER BY "insertiontime" DESC) AS rn
     FROM 
         staging."character" sta
-    GROUP BY
-        sta."firstname"
-        , sta."surname"
 )
 
 /* Update Characters */
@@ -33,6 +39,7 @@ UPDATE prod."D_Character"
         "Gender" = COALESCE(st."gender", "Gender")
         , "YearOfBirth" = COALESCE(st."born", "YearOfBirth")
         , "YearOfDeath" = COALESCE(st."died", "YearOfDeath")
+        , 
 
     FROM staging."character" st
 
