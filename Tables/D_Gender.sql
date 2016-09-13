@@ -5,13 +5,12 @@ CREATE TABLE prod."D_Gender" (
     , "Gendername"  VARCHAR(7)  NOT NULL
 );
 
+-- Initial Data - TODO: Move to seperate File
 WITH GenderNames AS (
     SELECT 'Male'    as Gendername    UNION ALL
-    SELECT 'Female'  as Gendername    UNION ALL
-    SELECT 'Unknown' as Gendername
+    SELECT 'Female'  as Gendername
 )
 
--- Initial Data - TODO: Move to seperate File
 INSERT INTO prod."D_Gender" ("Gendername")
 SELECT *
 FROM GenderNames
