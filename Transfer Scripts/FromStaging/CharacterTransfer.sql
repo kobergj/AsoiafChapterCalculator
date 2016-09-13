@@ -30,7 +30,7 @@ WITH lastloaded as (
 /* Update Characters */
 UPDATE prod."D_Character"
     SET
-        "Gender" = COALESCE(st."gender", "Gender")
+        "GenderId"      = COALESCE(gen."Id", "GenderId")
         , "YearOfBirth" = COALESCE(st."born", "YearOfBirth")
         , "YearOfDeath" = COALESCE(st."died", "YearOfDeath")
 
@@ -39,6 +39,7 @@ UPDATE prod."D_Character"
     INNER JOIN lastloaded ll ON ll."firstname" = st."firstname"
                             AND ll."surname" = st."surname"
                             AND ll."insertiontime" = st."insertiontime"
+    LEFT JOIN prod."D_Gender" gen ON gen."Gendername" = st."gender"
 
     WHERE "FirstName" = st."firstname"
       AND "SurName" = st."surname"
