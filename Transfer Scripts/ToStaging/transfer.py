@@ -1,3 +1,4 @@
+import Models.models as mod
 
 import Getters.apigetters as apiget
 import Getters.yamlgetters as yamlget
@@ -6,6 +7,7 @@ import Mappers.apimappers as apimap
 import Mappers.yamlmappers as yamlmap
 
 import QueryGenerators.insertqueries as insquery
+
 import Connections.postgresconn as postgres
 
 class DataTransfer:
@@ -16,16 +18,16 @@ class DataTransfer:
         self.connection = connection
 
     def __call__(self, **getterargs):
-        page = self.getter(**getterargs)
+        gettermodel = self.getter(**getterargs)
 
-        if not page:
+        if not gettermodel:
             return
 
-        valueList = self.mapper(page)
+        storermodelList = self.mapper(gettermodel)
 
-        for values in valueList:
+        for storermodel in storermodelList:
 
-            query = self.querygenerator(*values)
+            query = self.querygenerator(storermodel)
 
             self.connection(query)
 
@@ -33,7 +35,7 @@ class DataTransfer:
 
 def TransferCharactersFromApi(*pages):
     etl = DataTransfer(getter=apiget.ApiCharacterGetter(), 
-                        mapper=apimap.mapCharacters,
+                        mapper=apimap.CharacterMapper(mod.Character),
                         querygenerator=insquery.InsertCharacter(),
                         connection=postgres.StagingConnection("AsoiafDWH")
                         )
@@ -41,9 +43,9 @@ def TransferCharactersFromApi(*pages):
     for i in pages:
         etl(page=i)
 
-def CalculateChapterNumbers(filepath):
+def TransferChapterNumbers(filepath):
     etl = DataTransfer(getter=yamlget.YamlGetter(filepath),
-                       mapper=yamlmap.mapChapters,
+                       mapper=yamlmap.ChapterMapper(mod.Chapter),
                        querygenerator=insquery.InsertChapter(),
                        connection=postgres.StagingConnection("AsoiafDWH")
                        )
@@ -52,19 +54,15 @@ def CalculateChapterNumbers(filepath):
 
 def TransferCharInChapter(filepath):
     etl = DataTransfer(getter=yamlget.YamlGetter(filepath),
-                       mapper=yamlmap.mapCharInChapter,
+                       mapper=yamlmap.CharInChapterMapper(mod.CharInChapter),
                        querygenerator=insquery.InsertCharInChapter(),
                        connection=postgres.StagingConnection("AsoiafDWH")
                        )
 
     etl()
 
-def test(*pages):
-    for i in pages:
-        print i
-
 if __name__=='__main__':
     TransferCharactersFromApi(*range(1, 100))
-    #CalculateChapterNumbers("/Users/Kokweazel/Documents/AsoiafYamls/chapternames.yaml")
+    #TransferChapterNumbers("/Users/Kokweazel/Documents/AsoiafYamls/chapternames.yaml")
     #TransferCharInChapter("/Users/Kokweazel/Documents/AsoiafYamls/maincharacters.yaml")
 
