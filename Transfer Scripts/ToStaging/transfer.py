@@ -1,4 +1,5 @@
-import Models.models as mod
+import Models.storermodels as smod
+import Models.gettermodels as gmod
 
 import Getters.apigetters as apiget
 import Getters.yamlgetters as yamlget
@@ -34,8 +35,8 @@ class DataTransfer:
         return True
 
 def TransferCharactersFromApi(*pages):
-    etl = DataTransfer(getter=apiget.ApiCharacterGetter(), 
-                        mapper=apimap.CharacterMapper(mod.Character),
+    etl = DataTransfer(getter=apiget.ApiCharacterGetter(gmod.Character), 
+                        mapper=apimap.CharacterMapper(smod.Character),
                         querygenerator=insquery.InsertCharacter(),
                         connection=postgres.StagingConnection("AsoiafDWH")
                         )
@@ -45,7 +46,7 @@ def TransferCharactersFromApi(*pages):
 
 def TransferChapterNumbers(filepath):
     etl = DataTransfer(getter=yamlget.YamlGetter(filepath),
-                       mapper=yamlmap.ChapterMapper(mod.Chapter),
+                       mapper=yamlmap.ChapterMapper(smod.Chapter),
                        querygenerator=insquery.InsertChapter(),
                        connection=postgres.StagingConnection("AsoiafDWH")
                        )
@@ -54,7 +55,7 @@ def TransferChapterNumbers(filepath):
 
 def TransferCharInChapter(filepath):
     etl = DataTransfer(getter=yamlget.YamlGetter(filepath),
-                       mapper=yamlmap.CharInChapterMapper(mod.CharInChapter),
+                       mapper=yamlmap.CharInChapterMapper(smod.CharInChapter),
                        querygenerator=insquery.InsertCharInChapter(),
                        connection=postgres.StagingConnection("AsoiafDWH")
                        )

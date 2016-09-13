@@ -1,5 +1,33 @@
 import basicmappers as bsc
 
+def map_charname(charcomplete):
+    nameparts = charcomplete.split(' ')
+
+    if len(nameparts) == 1:
+        return None, None
+
+    if len(nameparts) == 2:
+        return nameparts[0], nameparts[1]
+
+    return ' '.join(nameparts[:-1]), nameparts[-1]
+
+def map_date(rawdate):
+    date = ''.join(i for i in rawdate if i.isdigit())
+
+    if not date:
+        return None
+
+    if len(date) == 6:
+        return (int(date[:3]) + int(date[3:]))/2
+
+    return int(date)
+
+def map_asis(rawstring):
+    if not rawstring:
+        return None
+
+    return rawstring
+
 class CharacterMapper(bsc.Mapper):
     def __call__(self, charlist):
         values = []
@@ -11,24 +39,17 @@ class CharacterMapper(bsc.Mapper):
         return values
 
     def mapCharacter(self, apicharacter):
-        try:
-            first, sur = apicharacter.name.split(' ')
-        except ValueError:
-            first, sur = None, None
+        first, sur = map_charname(apicharacter.name)
+        
+        gender = map_asis(apicharacter.gender)
+        born = map_date(apicharacter.born)
+        died = map_date(apicharacter.died)
 
-        gender = None
-        if apicharacter.gender:
-            gender = apicharacter.gender
+        culture = map_asis(apicharacter.culture)
 
+        fatherfirst, fathersur = map_charname(apicharacter.father)
+        motherfirst, mothersur = map_charname(apicharacter.mother)
+        spousefirst, spousesur = map_charname(apicharacter.spouse)
 
-        bornAt = None
-        born = ''.join(i for i in apicharacter.born if i.isdigit())
-        if born:
-            bornAt = int(born) 
-
-        diedAt = None
-        died = ''.join(i for i in apicharacter.died if i.isdigit())
-        if died:
-            diedAt = int(died)
-
-        return self.outmodel(first, sur, gender, bornAt, diedAt)
+        return self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
+            fathersur, motherfirst, mothersur, spousefirst, spousesur)
