@@ -9,7 +9,7 @@ CREATE TABLE prod."D_Character" (
     , "GenderId"        INTEGER     NULL  -- Reference to D_Gender
     , "YearOfBirth"     INTEGER     NULL
     , "YearOfDeath"     INTEGER     NULL
-    , "Culture"         VARCHAR(20) NULL
+    , "Culture"         VARCHAR(50) NULL
     -- Relatives
     , "FatherId"        INTEGER     NULL -- Reference to D_Character
     , "MotherId"        INTEGER     NULL -- Reference to D_Character

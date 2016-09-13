@@ -1,11 +1,9 @@
 /* Insert new Characters */
 WITH characters as (
-    SELECT
-        sta."firstname"   as firstname, sta."surname"   as surname UNION ALL
-        sta."fatherfirst" as firstname, sta."fathersur" as surname UNION ALL
-        sta."motherfirst" as firstname, sta."mothersur" as surname UNION ALL
-        sta."spousefirst" as firstname, sta."spousesur" as surname
-    FROM staging."character" sta
+    SELECT "firstname"   as firstname, "surname"   as surname FROM staging."character" UNION ALL
+    SELECT "fatherfirst" as firstname, "fathersur" as surname FROM staging."character" UNION ALL
+    SELECT "motherfirst" as firstname, "mothersur" as surname FROM staging."character" UNION ALL
+    SELECT "spousefirst" as firstname, "spousesur" as surname FROM staging."character"
 )
 
 INSERT INTO prod."D_Character" ("FirstName", "SurName") 
@@ -21,10 +19,10 @@ INSERT INTO prod."D_Character" ("FirstName", "SurName")
         FROM prod."D_Character" ch
         WHERE ch."FirstName" = sta."firstname"
           AND ch."SurName" = sta."surname"
-    );
+    )
 
 /* Extract Newest Lines */
-WITH lastloaded as (
+; WITH lastloaded as (
     SELECT
         *
         , ROW_NUMBER() OVER (PARTITION BY ("firstname", "surname")
@@ -34,22 +32,32 @@ WITH lastloaded as (
 )
 
 /* Update Characters */
-UPDATE prod."D_Character"
+UPDATE prod."D_Character" chr
     SET
-        "GenderId"      = COALESCE(gen."Id", "GenderId")
-        , "YearOfBirth" = COALESCE(st."born", "YearOfBirth")
-        , "YearOfDeath" = COALESCE(st."died", "YearOfDeath")
-        , 
+        "GenderId"      = COALESCE(gen."Id",     chr."GenderId")
+        , "YearOfBirth" = COALESCE(st."born",    chr."YearOfBirth")
+        , "YearOfDeath" = COALESCE(st."died",    chr."YearOfDeath")
+        , "Culture"     = COALESCE(st."culture", chr."Culture")
+        , "FatherId"    = COALESCE(ft."Id",      chr."FatherId")
+        , "MotherId"    = COALESCE(mt."Id",      chr."MotherId")
+        , "SpouseId"    = COALESCE(sp."Id",      chr."SpouseId")
 
-    FROM staging."character" st
+    FROM lastloaded st
+    LEFT JOIN
+        prod."D_Gender" gen ON gen."Gendername" = st."gender"
+    LEFT JOIN
+        prod."D_Character" ft ON ft."FirstName" = st."fatherfirst"
+                             AND ft."SurName"  = st."fathersur"
+    LEFT JOIN
+        prod."D_Character" mt ON mt."FirstName" = st."motherfirst"
+                             AND mt."SurName"  = st."mothersur"
+    LEFT JOIN
+        prod."D_Character" sp ON sp."FirstName" = st."spousefirst"
+                             AND sp."SurName"  = st."spousesur"
 
-    INNER JOIN lastloaded ll ON ll."firstname" = st."firstname"
-                            AND ll."surname" = st."surname"
-                            AND ll."insertiontime" = st."insertiontime"
-    LEFT JOIN prod."D_Gender" gen ON gen."Gendername" = st."gender"
-
-    WHERE "FirstName" = st."firstname"
-      AND "SurName" = st."surname"
+    WHERE st."rn" = 1
+      AND chr."FirstName" = st."firstname"
+      AND chr."SurName" = st."surname"
 
 /*
 UPDATE dbo."D_Character" ch
