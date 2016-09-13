@@ -6,13 +6,12 @@ CREATE TABLE prod."D_Gender" (
 );
 
 WITH GenderNames AS (
-    SELECT
-    "Male"      as Gendername    UNION ALL
-    , "Female"  as Gendername    UNION ALL
-    , "Unknown" as Gendername
+    SELECT 'Male'    as Gendername    UNION ALL
+    SELECT 'Female'  as Gendername    UNION ALL
+    SELECT 'Unknown' as Gendername
 )
 
 -- Initial Data - TODO: Move to seperate File
-INSERT INTO prod."Gender" ("Gendername")
-SELECT "Gendername"
+INSERT INTO prod."D_Gender" ("Gendername")
+SELECT *
 FROM GenderNames

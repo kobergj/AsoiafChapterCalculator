@@ -6,7 +6,7 @@ CREATE TABLE prod."D_Character" (
     , "FirstName"     VARCHAR(50) NOT NULL
     , "SurName"       VARCHAR(50) NOT NULL
     -- Descriptives
-    , "Gender"        VARCHAR(10) NULL
+    , "GenderId"      INTEGER     NULL  -- Reference to D_Gender
     , "YearOfBirth"   INTEGER     NULL
     , "YearOfDeath"   INTEGER     NULL
 );
