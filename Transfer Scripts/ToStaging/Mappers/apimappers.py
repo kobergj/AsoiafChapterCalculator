@@ -14,6 +14,17 @@ def map_charname(charcomplete):
 
     return ' '.join(nameparts), ''
 
+def map_housename(housecomplete):
+    nameparts = housecomplete.split(' ')
+
+    if len(nameparts) == 1:
+        return None, None
+
+    if len(nameparts) == 2:
+        return nameparts[1], None
+
+    return nameparts[1], ' '.join(nameparts[2:])
+
 def map_date(rawdate):
     date = ''.join(i for i in rawdate if i.isdigit())
 
@@ -37,17 +48,18 @@ def map_asis(rawstring):
 
     return rawstring
 
-class CharacterMapper(bsc.Mapper):
+class ApiMapper(bsc.Mapper):
     def __call__(self, charlist):
         values = []
         for char in charlist:
-            vallist = self.mapCharacter(char)
+            vallist = self.mapModels(char)
             if vallist:
                 values.append(vallist)
 
         return values
 
-    def mapCharacter(self, apicharacter):
+class CharacterMapper(ApiMapper):
+    def mapModels(self, apicharacter):
         first, sur = map_charname(apicharacter.name)
         
         gender = map_asis(apicharacter.gender)
@@ -62,3 +74,23 @@ class CharacterMapper(bsc.Mapper):
 
         return self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
             fathersur, motherfirst, mothersur, spousefirst, spousesur)
+
+class HouseMapper(ApiMapper):
+    def mapModels(self, apihouse):
+        name, branch = map_housename(apihouse.name)
+
+        founderfirst, foundersur = map_charname(apihouse.founder)
+        heirfirst, heirsur = map_charname(apihouse.heir)
+        lordfirst, lordsur = map_charname(apihouse.lord)
+
+        overlord, overlordbranch = map_housename(apihouse.overlord)
+        region = map_asis(apihouse.region)
+
+        founded = map_date(apihouse.founded)
+        diedout = map_date(apihouse.diedout)
+
+        words = map_asis(apihouse.words)
+        coatofarms = map_asis(apihouse.coatofarms)
+
+        return self.outmodel(name, branch, founderfirst, foundersur, heirfirst, heirsur,
+            lordfirst, lordsur, overlord, overlordbranch, region, founded, diedout, words, coatofarms)

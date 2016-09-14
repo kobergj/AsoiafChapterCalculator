@@ -66,3 +66,28 @@ class InsertCharacter(InsertQuery):
 
             'insertiontime': datetime.datetime.now()
             }
+
+class InsertHouse(InsertQuery):
+    def __init__(self):
+        InsertQuery.__init__(self, "house")
+
+    def add_column_names(self, housemodel):
+        return {
+            "name": housemodel.name,
+            "branch": housemodel.seat,
+            "founderfirst": housemodel.founderfirst,
+            "foundersur": housemodel.foundersur,
+            "heirfirst": housemodel.heirfirst,
+            "heirsur": housemodel.heirsur,
+            "lordfirst": housemodel.lordfirst,
+            "lordsur": housemodel.lordsur,
+            "overlord": housemodel.overlord,
+            "overlordbranch": housemodel.overlordseat,
+            "region": housemodel.region,
+            "founded": housemodel.founded,
+            "diedout": housemodel.diedout,
+            "words": housemodel.words,
+            "coatofarms": housemodel.coatofarms,
+
+            'insertiontime': datetime.datetime.now()
+            }
