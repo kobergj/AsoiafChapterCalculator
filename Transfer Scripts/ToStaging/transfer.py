@@ -80,10 +80,10 @@ if __name__=='__main__':
     TransferCharInChapter("/Users/Kokweazel/Documents/AsoiafYamls/maincharacters.yaml")
 
     # Characters
-    TransferCharactersFromApi(*range(10, 30))
+    TransferCharactersFromApi(*range(1, 30))
 
     # Houses
-    TransferHousesFromApi(*range(30, 50))
+    TransferHousesFromApi(*range(1, 30))
 
 
 
