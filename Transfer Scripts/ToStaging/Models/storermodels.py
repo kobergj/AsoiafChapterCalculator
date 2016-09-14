@@ -31,3 +31,29 @@ class Character:
 
         self.spousefirst = spousefirst
         self.spousesur = spousesur
+
+class House:
+    def __init__(self, name, seat, founderfirst, foundersur, heirfirst, heirsur,
+            lordfirst, lordsur, overlord, overlordseat, region, founded, diedout, words, coatofarms):
+        self.name = name
+        self.seat = seat
+
+        self.founderfirst = founderfirst
+        self.foundersur = foundersur
+
+        self.heirfirst = heirfirst
+        self.heirsur = heirsur
+
+        self.lordfirst = lordfirst
+        self.lordsur = lordsur
+
+        self.overlord = overlord
+        self.overlordseat = overlordseat
+
+        self.region = region
+
+        self.founded = founded
+        self.diedout = diedout
+
+        self.words = words
+        self.coatofarms = coatofarms

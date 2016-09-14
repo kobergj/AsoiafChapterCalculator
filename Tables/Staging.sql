@@ -1,3 +1,25 @@
+DROP TABLE IF EXISTS staging."house";
+
+CREATE TABLE staging."house" (
+    "name"               VARCHAR(50)     NULL
+    , "branch"           VARCHAR(50)     NULL
+    , "founderfirst"     VARCHAR(50)     NULL
+    , "foundersur"       VARCHAR(50)     NULL
+    , "heirfirst"        VARCHAR(50)     NULL
+    , "heirsur"          VARCHAR(50)     NULL
+    , "lordfirst"        VARCHAR(50)     NULL
+    , "lordsur"          VARCHAR(50)     NULL
+    , "overlord"         VARCHAR(50)     NULL
+    , "overlordbranch"   VARCHAR(50)     NULL
+    , "region"           VARCHAR(50)     NULL
+    , "founded"          INTEGER         NULL
+    , "diedout"          INTEGER         NULL
+    , "words"            VARCHAR(200)    NULL
+    , "coatofarms"       VARCHAR(500)    NULL
+    , "insertiontime"    TIMESTAMP       NOT NULL
+
+);
+
 DROP TABLE IF EXISTS staging."character";
 
 CREATE TABLE staging."character" (

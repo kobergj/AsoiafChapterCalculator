@@ -2,23 +2,54 @@ import anapioficeandfire
 
 import basicgetters as bsc
 
-class ApiCharacterGetter(bsc.BasicGetter):
-    def _connect(self, charmodel):
+class ApiGetter(bsc.BasicGetter):
+    def _connect(self, outmodel):
         self.api = anapioficeandfire.API()
 
-        self.charmodel = charmodel
+        self.outmodel = outmodel
 
     def __call__(self, **apikwargs):
-        chars = self.api.get_characters(**apikwargs)
+        inmodels = self.getmany(**apikwargs)
 
-        clist = []
-        for char in chars:
-            cmod = self.parseCharacter(char)
-            clist.append(cmod)
+        outlist = []
+        for inmodel in inmodels:
+            mod = self.parse(inmodel)
+            outlist.append(mod)
 
-        return clist
+        return outlist
 
-    def parseCharacter(self, rawchar):
+    def getmany(self):
+        return
+
+    def parse(self, *args):
+        return
+
+    def getCharName(self, url):
+        if not url:
+            return ''
+
+        charId = int(''.join(i for i in url if i.isdigit()))
+
+        char = self.api.get_character(id=charId)
+
+        return char.name
+
+    def getHouseName(self, url):
+        if not url:
+            return ''
+
+        houseId = int(''.join(i for i in url if i.isdigit()))
+
+        house = self.api.get_house(id=houseId)
+
+        return house.name
+
+
+class ApiCharacterGetter(ApiGetter):
+    def getmany(self, **kwargs):
+        return self.api.get_characters(**kwargs)
+
+    def parse(self, rawchar):
         name = rawchar.name
         
         gender = rawchar.gender
@@ -32,15 +63,27 @@ class ApiCharacterGetter(bsc.BasicGetter):
         mother = self.getCharName(rawchar.mother)
         spouse = self.getCharName(rawchar.spouse)
 
-        return self.charmodel(name, gender, born, died, culture, father, mother, spouse)
+        return self.outmodel(name, gender, born, died, culture, father, mother, spouse)
 
-    def getCharName(self, url):
-        if not url:
-            return ''
+class ApiHouseGetter(ApiGetter):
+    def getmany(self, **kwargs):
+        return self.api.get_houses(**kwargs)
 
-        charId = int(''.join(i for i in url if i.isdigit()))
+    def parse(self, rawhouse):
+        name = rawhouse.name
 
-        char = self.api.get_character(id=charId)
+        founder = self.getCharName(rawhouse.founder)
+        heir = self.getCharName(rawhouse.heir)
+        lord = self.getCharName(rawhouse.currentLord)
 
-        return char.name
+        overlord = self.getHouseName(rawhouse.overlord)
+
+        region = rawhouse.region
+        founded = rawhouse.founded
+        diedout = rawhouse.diedOut
+        words = rawhouse.words
+        coatofarms = rawhouse.coatOfArms
+
+        return self.outmodel(name, founder, heir, lord, overlord, region, founded,
+                diedout, words, coatofarms)
 

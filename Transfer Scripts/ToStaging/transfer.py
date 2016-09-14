@@ -44,6 +44,16 @@ def TransferCharactersFromApi(*pages):
     for i in pages:
         etl(page=i)
 
+def TransferHousesFromApi(*pages):
+    etl = DataTransfer(getter=apiget.ApiHouseGetter(gmod.House), 
+                        mapper=apimap.HouseMapper(smod.House),
+                        querygenerator=insquery.InsertHouse(),
+                        connection=postgres.StagingConnection("AsoiafDWH")
+                        )
+
+    for i in pages:
+        etl(page=i)
+
 def TransferChapterNumbers(filepath):
     etl = DataTransfer(getter=yamlget.YamlGetter(filepath),
                        mapper=yamlmap.ChapterMapper(smod.Chapter),
@@ -63,7 +73,17 @@ def TransferCharInChapter(filepath):
     etl()
 
 if __name__=='__main__':
-    TransferCharactersFromApi(*range(20, 30))
+    # Chapter Numbers
     TransferChapterNumbers("/Users/Kokweazel/Documents/AsoiafYamls/chapternames.yaml")
+
+    # Main Chars
     TransferCharInChapter("/Users/Kokweazel/Documents/AsoiafYamls/maincharacters.yaml")
+
+    # Characters
+    TransferCharactersFromApi(*range(10, 30))
+
+    # Houses
+    TransferHousesFromApi(*range(30, 50))
+
+
 
