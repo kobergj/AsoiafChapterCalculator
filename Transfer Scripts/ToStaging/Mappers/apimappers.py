@@ -48,18 +48,9 @@ def map_asis(rawstring):
 
     return rawstring
 
-class ApiMapper(bsc.Mapper):
-    def __call__(self, charlist):
-        values = []
-        for char in charlist:
-            vallist = self.mapModels(char)
-            if vallist:
-                values.append(vallist)
 
-        return values
-
-class CharacterMapper(ApiMapper):
-    def mapModels(self, apicharacter):
+class CharacterMapper(bsc.Mapper):
+    def __call__(self, apicharacter):
         first, sur = map_charname(apicharacter.name)
         
         gender = map_asis(apicharacter.gender)
@@ -72,11 +63,11 @@ class CharacterMapper(ApiMapper):
         motherfirst, mothersur = map_charname(apicharacter.mother)
         spousefirst, spousesur = map_charname(apicharacter.spouse)
 
-        return self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
-            fathersur, motherfirst, mothersur, spousefirst, spousesur)
+        return [self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
+            fathersur, motherfirst, mothersur, spousefirst, spousesur)]
 
-class HouseMapper(ApiMapper):
-    def mapModels(self, apihouse):
+class HouseMapper(bsc.Mapper):
+    def __call__(self, apihouse):
         name, branch = map_housename(apihouse.name)
 
         founderfirst, foundersur = map_charname(apihouse.founder)
@@ -92,5 +83,48 @@ class HouseMapper(ApiMapper):
         words = map_asis(apihouse.words)
         coatofarms = map_asis(apihouse.coatofarms)
 
-        return self.outmodel(name, branch, founderfirst, foundersur, heirfirst, heirsur,
-            lordfirst, lordsur, overlord, overlordbranch, region, founded, diedout, words, coatofarms)
+        return [self.outmodel(name, branch, founderfirst, foundersur, heirfirst, heirsur,
+            lordfirst, lordsur, overlord, overlordbranch, region, founded, diedout, words, coatofarms)]
+
+class PossessionMapper(bsc.Mapper):
+    def for_loop(self, poslist, apihouseorchar):
+        outmodels = []
+        for seat in poslist:
+            description = seat
+
+            name, branch, first, sur = self.identify(apihouseorchar.name)
+
+            outmodels.append(self.outmodel(description, name, branch, first, sur))
+
+        return outmodels
+
+class HousePossessionMapper(PossessionMapper):
+    def identify(self, housename):
+        name, branch = map_housename(housename)
+        return name, branch, None, None
+
+class CharacterPossessionMapper(PossessionMapper):
+    def identify(self, charname):
+        first, sur = map_charname(charname)
+        return None, None, first, sur
+
+class SeatMapper(HousePossessionMapper):
+    def __call__(self, apihouse):
+        return self.for_loop(apihouse.seats, apihouse)
+
+class TitleMapper(HousePossessionMapper):
+    def __call__(self, apihouse):
+        return self.for_loop(apihouse.titles, apihouse)
+
+class WeaponMapper(HousePossessionMapper):
+    def __call__(self, apihouse):
+        return self.for_loop(apihouse.weapons, apihouse)
+
+class AliasMapper(CharacterPossessionMapper):
+    def __call__(self, apichar):
+        return self.for_loop(apichar.aliases, apichar)
+
+class TitleMapperChar(CharacterPossessionMapper):
+    def __call__(self, apichar):
+        return self.for_loop(apichar.titles, apichar)
+

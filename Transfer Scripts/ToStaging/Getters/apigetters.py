@@ -63,7 +63,10 @@ class ApiCharacterGetter(ApiGetter):
         mother = self.getCharName(rawchar.mother)
         spouse = self.getCharName(rawchar.spouse)
 
-        return self.outmodel(name, gender, born, died, culture, father, mother, spouse)
+        titles = rawchar.titles
+        aliases = rawchar.aliases
+
+        return self.outmodel(name, gender, born, died, culture, father, mother, spouse, titles, aliases)
 
 class ApiHouseGetter(ApiGetter):
     def getmany(self, **kwargs):
@@ -84,6 +87,10 @@ class ApiHouseGetter(ApiGetter):
         words = rawhouse.words
         coatofarms = rawhouse.coatOfArms
 
+        weapons = rawhouse.ancestralWeapons
+        titles = rawhouse.titles
+        seats = rawhouse.seats
+
         return self.outmodel(name, founder, heir, lord, overlord, region, founded,
-                diedout, words, coatofarms)
+                diedout, words, coatofarms, weapons, titles, seats)
 
