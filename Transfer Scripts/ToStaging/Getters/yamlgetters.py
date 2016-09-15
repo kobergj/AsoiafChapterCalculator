@@ -11,7 +11,7 @@ class YamlGetter(bsc.BasicGetter):
             if key:
                 return yamlfile[key]
 
-            return yamlfile
+            return [yamlfile]
 
         return getinfo
 
