@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS staging."possession";
+
+CREATE TABLE staging."possession" (
+    "description"       VARCHAR(200)    NULL
+    , "possessiontype"  VARCHAR(10)     NULL
+    , "house"           VARCHAR(50)     NULL
+    , "branch"          VARCHAR(50)     NULL
+    , "charfirst"       VARCHAR(50)     NULL
+    , "charsur"         VARCHAR(50)     NULL
+    , "insertiontime"   TIMESTAMP       NOT NULL
+);
+
 DROP TABLE IF EXISTS staging."house";
 
 CREATE TABLE staging."house" (

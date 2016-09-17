@@ -30,6 +30,7 @@ class InsertCharInChapter(InsertQuery):
             "charfirstname": charinchapmodel.charfirstname,
             "charsurname": charinchapmodel.charsurname,
             "chapname": charinchapmodel.chaptername,
+
             'insertiontime': datetime.datetime.now()
         }
 
@@ -42,6 +43,7 @@ class InsertChapter(InsertQuery):
             "chaptername": chaptermodel.name,
             "chapternumber": chaptermodel.number,
             "bookname": chaptermodel.bookname,
+
             'insertiontime': datetime.datetime.now()
         }
 
@@ -91,3 +93,24 @@ class InsertHouse(InsertQuery):
 
             'insertiontime': datetime.datetime.now()
             }
+
+class InsertPossession(InsertQuery):
+    def __init__(self, postype):
+        InsertQuery.__init__(self, "possession")
+
+        self.postype = postype
+
+    def add_column_names(self, possessionmodel):
+        return {
+            "description": possessionmodel.description,
+
+            "possessiontype": self.postype,
+
+            "house": possessionmodel.house,
+            "branch": possessionmodel.branch,
+
+            "charfirst": possessionmodel.charfirst,
+            "charsur": possessionmodel.charsur,
+
+            'insertiontime': datetime.datetime.now()
+        }

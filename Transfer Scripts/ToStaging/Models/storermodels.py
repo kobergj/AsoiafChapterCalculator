@@ -57,3 +57,14 @@ class House:
 
         self.words = words
         self.coatofarms = coatofarms
+
+class Possession:
+    def __init__(self, description, house, branch, charfirst, charsur):
+        self.description = description
+
+        self.house = house
+        self.branch = branch
+
+        self.charfirst = charfirst
+        self.charsur = charsur
+
