@@ -24,11 +24,11 @@ INSERT INTO prod."D_Character" ("FirstName", "SurName")
 )
 
 INSERT INTO prod."D_House" ("Name", "Branch")
-    SELECT DISTINCT sta."name", sta."branch" FROM Houses sta
+    SELECT sta."name", sta."branch" FROM Houses sta
     WHERE sta."name" IS NOT NULL
-      AND sta."branch" IS NOT NULL
       AND NOT EXISTS ( SELECT 1 FROM prod."D_House" ho
-                       WHERE ho."Name" = sta."name" AND ho."Branch" = sta."branch")
+                       WHERE ho."Name" = sta."name"
+                       AND ho."Branch" = sta."branch" OR ho."Branch" IS NULL)
 
 
 ; WITH LastLoaded as (
