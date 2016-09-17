@@ -68,3 +68,18 @@ class Possession:
         self.charfirst = charfirst
         self.charsur = charsur
 
+class CharHouseRelation:
+    def __init__(self, first, sur, house, branch):
+        self.first = first
+        self.sur = sur
+
+        self.house = house
+        self.branch = branch
+
+class CadetBranch:
+    def __init__(self, master, masterbranch, cadet, cadetbranch):
+        self.master = master
+        self.masterbranch = masterbranch
+
+        self.cadet = cadet
+        self.cadetbranch = cadetbranch

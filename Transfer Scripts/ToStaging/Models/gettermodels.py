@@ -1,6 +1,7 @@
 
 class Character:
-    def __init__(self, name, gender, born, died, culture, father, mother, spouse, titles, aliases): 
+    def __init__(self, name, gender, born, died, culture, father, mother, spouse,
+            titles, aliases, allegiances): 
         self.name = name 
         self.gender = gender 
         self.born = born 
@@ -13,9 +14,11 @@ class Character:
         self.titles = titles
         self.aliases = aliases
 
+        self.allegiances = allegiances
+
 class House:
     def __init__(self, name, founder, heir, lord, overlord, region, founded, diedout,
-            words, coatofarms, weapons, titles, seats):
+            words, coatofarms, weapons, titles, seats, members, cadets):
         self.name = name
         self.founder = founder
         self.heir = heir
@@ -30,3 +33,7 @@ class House:
         self.weapons = weapons
         self.titles = titles
         self.seats = seats
+
+        self.members = members
+
+        self.cadets = cadets

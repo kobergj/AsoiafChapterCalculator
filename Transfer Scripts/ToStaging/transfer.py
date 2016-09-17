@@ -10,6 +10,7 @@ import Mappers.yamlmappers as yamlmap
 import QueryGenerators.insertqueries as insquery
 
 import Connections.postgresconn as postgres
+import Connections.cache as cch
 
 class DataTransfer:
     def __init__(self):
@@ -39,11 +40,12 @@ class DataTransfer:
             query = self._qu.pop()
             connection(query)
 
-def ApiCharToStaging(*pages):
+def ApiCharToStaging(cache, *pages):
     data = DataTransfer()
 
     for i in pages:
-        data.getmodels(apiget.ApiCharacterGetter(gmod.Character), page=i)
+        data.getmodels(apiget.ApiCharacterGetter(gmod.Character, cache), page=i)
+        print 'Got Page %s' % i
 
     data.storemodels(apimap.CharacterMapper(smod.Character), insquery.InsertCharacter())
 
@@ -51,13 +53,16 @@ def ApiCharToStaging(*pages):
 
     data.storemodels(apimap.AliasMapper(smod.Possession), insquery.InsertPossession("Alias"))
 
+    data.storemodels(apimap.AllegianceMapper(smod.CharHouseRelation), insquery.InsertCharHouseRelation("Allegiance"))
+
     data.commit(postgres.StagingConnection("AsoiafDWH"))
 
-def ApiHouseToStaging(*pages):
+def ApiHouseToStaging(cache, *pages):
     data = DataTransfer()
 
     for i in pages:
-        data.getmodels(apiget.ApiHouseGetter(gmod.House), page=i)
+        data.getmodels(apiget.ApiHouseGetter(gmod.House, cache), page=i)
+        print 'Got Page %s' % i
 
     data.storemodels(apimap.HouseMapper(smod.House), insquery.InsertHouse())
 
@@ -66,6 +71,10 @@ def ApiHouseToStaging(*pages):
     data.storemodels(apimap.TitleMapper(smod.Possession), insquery.InsertPossession("Title"))
 
     data.storemodels(apimap.WeaponMapper(smod.Possession), insquery.InsertPossession("Weapon"))
+
+    data.storemodels(apimap.MemberMapper(smod.CharHouseRelation), insquery.InsertCharHouseRelation("Member"))
+
+    data.storemodels(apimap.CadetBranchMapper(smod.CadetBranch), insquery.InsertCadetBranches())
 
     data.commit(postgres.StagingConnection("AsoiafDWH"))
 
@@ -95,11 +104,13 @@ if __name__=='__main__':
     # Main Chars
     CharNChapterToStaging("/Users/Kokweazel/Documents/AsoiafYamls/maincharacters.yaml")
 
-    # Characters
-    ApiCharToStaging(*range(1, 50))
+    cache = cch.CacheDB()
 
-    # Houses
-    ApiHouseToStaging(*range(1, 50))
+    print 'Characters'
+    ApiCharToStaging(cache, *range(1, 100))
+
+    print 'Houses'
+    ApiHouseToStaging(cache, *range(1, 100))
 
 
 

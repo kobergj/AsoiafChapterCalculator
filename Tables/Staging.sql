@@ -67,3 +67,24 @@ CREATE TABLE staging."chapter" (
     , "chapternumber"   INTEGER         NULL
     , "insertiontime"   TIMESTAMP       NOT NULL
 );
+
+DROP TABLE IF EXISTS staging."charhouserelation";
+
+CREATE TABLE staging."charhouserelation" (
+    "first"             VARCHAR(50) NULL
+    , "sur"             VARCHAR(50) NULL
+    , "house"           VARCHAR(50) NULL
+    , "branch"          VARCHAR(50) NULL
+    , "relationtype"    VARCHAR(50) NULL
+    , "insertiontime"   TIMESTAMP   NOT NULL
+);
+
+DROP TABLE IF EXISTS staging."cadetbranches";
+
+CREATE TABLE staging."cadetbranches" (
+    "master"            VARCHAR(50) NULL
+    , "masterbranch"    VARCHAR(50) NULL
+    , "cadet"           VARCHAR(50) NULL
+    , "cadetbranch"     VARCHAR(50) NULL
+    , "insertiontime"   TIMESTAMP   NOT NULL
+);
