@@ -32,3 +32,14 @@ EXCEPT SELECT "Name" FROM prod."D_Book"
 INSERT INTO prod."D_PossessionType" ("Name")
 SELECT "name" FROM PossessionTypes
 EXCEPT SELECT "Name" FROM prod."D_PossessionType"
+
+/* D_PossessionType */
+; WITH RelationTypes AS (
+    SELECT 'Member'     as name UNION ALL
+    SELECT 'Allegiance' as name UNION ALL
+    SELECT 'Enemy'      as name
+)
+
+INSERT INTO prod."D_RelationType" ("Name")
+SELECT "name" FROM RelationTypes
+EXCEPT SELECT "Name" FROM prod."D_PossessionType"
