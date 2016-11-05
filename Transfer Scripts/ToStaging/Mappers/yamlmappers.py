@@ -1,18 +1,24 @@
+import basicmappers as bsc
 
-def mapChapters(bookdict):
-    values = []
+class ChapterMapper(bsc.Mapper):
+    def __call__(self, bookdict):
+        model_list = []
 
-    for bookname, chapterlist in bookdict.iteritems():
+        for bookname, chapterlist in bookdict.iteritems():
 
-        for i, chaptername in enumerate(chapterlist):
-            values.append([chaptername, i, bookname])
+            for i, chaptername in enumerate(chapterlist):
+                model_list.append(self.outmodel(chaptername, i, bookname))
 
-    return values
+        return model_list
 
-def mapCharInChapter(chardict):
-    values = []
 
-    for chap, [charfirst, charsur] in chardict.iteritems():
-        values.append([chap, charfirst, charsur])
+class CharInChapterMapper(bsc.Mapper):
+    def __call__(self, chardict):
 
-    return values
+        model_list = []
+
+        for chap, [charfirst, charsur] in chardict.iteritems():
+            charinchap = self.outmodel(charfirst, charsur, chap)
+            model_list.append(charinchap)
+
+        return model_list
