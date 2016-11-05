@@ -14,7 +14,7 @@ INSERT INTO prod."D_House" ("Name", "Branch")
       AND sta."rn" = 1
       AND NOT EXISTS ( SELECT 1 FROM prod."D_House" ho
                        WHERE ho."Name" = sta."house"
-                       AND ho."Branch" = sta."branch" OR ho."Branch" IS NULL
+                       AND ho."Branch" = sta."branch" -- OR ho."Branch" IS NULL
 )
 
 /* Insert New Possessions */

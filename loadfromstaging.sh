@@ -10,3 +10,7 @@ echo Main Chars
 psql AsoiafDWH -f Transfer\ Scripts/FromStaging/MainCharInChapterTransfer.sql
 echo Possessions
 psql AsoiafDWH -f Transfer\ Scripts/FromStaging/HousePossessionTransfer.sql
+echo Cadets
+psql AsoiafDWH -f Transfer\ Scripts/FromStaging/CadetTransfer.sql
+echo Relations
+psql AsoiafDWH -f Transfer\ Scripts/FromStaging/RelationTransfer.sql
