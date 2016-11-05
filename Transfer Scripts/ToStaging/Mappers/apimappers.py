@@ -27,7 +27,7 @@ def extract_housename(house):
         return None, None
 
     if len(nameparts) == 2:
-        return nameparts[1], None
+        return nameparts[1], ''
 
     return nameparts[1], ' '.join(nameparts[2:])
 

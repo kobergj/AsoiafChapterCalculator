@@ -42,4 +42,4 @@ EXCEPT SELECT "Name" FROM prod."D_PossessionType"
 
 INSERT INTO prod."D_RelationType" ("Name")
 SELECT "name" FROM RelationTypes
-EXCEPT SELECT "Name" FROM prod."D_PossessionType"
+EXCEPT SELECT "Name" FROM prod."D_RelationType"
