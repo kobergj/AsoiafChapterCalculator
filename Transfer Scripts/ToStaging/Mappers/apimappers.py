@@ -1,7 +1,10 @@
 import basicmappers as bsc
 
-def map_charname(charcomplete):
-    nameparts = charcomplete.split(' ')
+def extract_charname(char):
+    if not char:
+        return None, None
+
+    nameparts = char.name.split(' ')
 
     if len(nameparts) == 1:
         return None, None
@@ -14,8 +17,11 @@ def map_charname(charcomplete):
 
     return ' '.join(nameparts), ''
 
-def map_housename(housecomplete):
-    nameparts = housecomplete.split(' ')
+def extract_housename(house):
+    if not house:
+        return None, None
+
+    nameparts = house.name.split(' ')
 
     if len(nameparts) == 1:
         return None, None
@@ -51,7 +57,7 @@ def map_asis(rawstring):
 
 class CharacterMapper(bsc.Mapper):
     def __call__(self, apicharacter):
-        first, sur = map_charname(apicharacter.name)
+        first, sur = extract_charname(apicharacter)
         
         gender = map_asis(apicharacter.gender)
         born = map_date(apicharacter.born)
@@ -59,22 +65,22 @@ class CharacterMapper(bsc.Mapper):
 
         culture = map_asis(apicharacter.culture)
 
-        fatherfirst, fathersur = map_charname(apicharacter.father)
-        motherfirst, mothersur = map_charname(apicharacter.mother)
-        spousefirst, spousesur = map_charname(apicharacter.spouse)
+        fatherfirst, fathersur = extract_charname(apicharacter.father)
+        motherfirst, mothersur = extract_charname(apicharacter.mother)
+        spousefirst, spousesur = extract_charname(apicharacter.spouse)
 
         return [self.outmodel(first, sur, gender, born, died, culture, fatherfirst,
             fathersur, motherfirst, mothersur, spousefirst, spousesur)]
 
 class HouseMapper(bsc.Mapper):
     def __call__(self, apihouse):
-        name, branch = map_housename(apihouse.name)
+        name, branch = extract_housename(apihouse)
 
-        founderfirst, foundersur = map_charname(apihouse.founder)
-        heirfirst, heirsur = map_charname(apihouse.heir)
-        lordfirst, lordsur = map_charname(apihouse.lord)
+        founderfirst, foundersur = extract_charname(apihouse.founder)
+        heirfirst, heirsur = extract_charname(apihouse.heir)
+        lordfirst, lordsur = extract_charname(apihouse.lord)
 
-        overlord, overlordbranch = map_housename(apihouse.overlord)
+        overlord, overlordbranch = extract_housename(apihouse.overlord)
         region = map_asis(apihouse.region)
 
         founded = map_date(apihouse.founded)
@@ -86,45 +92,56 @@ class HouseMapper(bsc.Mapper):
         return [self.outmodel(name, branch, founderfirst, foundersur, heirfirst, heirsur,
             lordfirst, lordsur, overlord, overlordbranch, region, founded, diedout, words, coatofarms)]
 
-class PossessionMapper(bsc.Mapper):
-    def for_loop(self, poslist, apihouseorchar):
-        outmodels = []
-        for seat in poslist:
-            description = seat
+class HousePossessionMapper(bsc.ListMapper):
+    def extract_args(self, descr, housemodel):
+        name, branch = extract_housename(housemodel)
+        return descr, name, branch, None, None
 
-            name, branch, first, sur = self.identify(apihouseorchar.name)
+class CharacterPossessionMapper(bsc.ListMapper):
+    def extract_args(self, descr, char):
+        first, sur = extract_charname(char)
+        return descr, None, None, first, sur
 
-            outmodels.append(self.outmodel(description, name, branch, first, sur))
+class CharHouseRelationMapper(bsc.ListMapper):
+    def extract_args(self, char, house):
+        first, sur = extract_charname(char)
+        house, branch = extract_housename(house)
+        return first, sur, house, branch
 
-        return outmodels
+class CadetBranchMapper(bsc.ListMapper):
+    def __call__(self, apihouse):
+        return bsc.ListMapper.__call__(self, apihouse.cadets, apihouse)
 
-class HousePossessionMapper(PossessionMapper):
-    def identify(self, housename):
-        name, branch = map_housename(housename)
-        return name, branch, None, None
+    def extract_args(self, cadet, master):
+        master, masterbranch = extract_housename(master)
+        cadet, cadetbranch = extract_housename(cadet)
+        return master, masterbranch, cadet, cadetbranch
 
-class CharacterPossessionMapper(PossessionMapper):
-    def identify(self, charname):
-        first, sur = map_charname(charname)
-        return None, None, first, sur
+class AllegianceMapper(CharHouseRelationMapper):
+    def __call__(self, apichar):
+        return CharHouseRelationMapper.__call__(self, apichar.allegiances, apichar)
+
+class MemberMapper(CharHouseRelationMapper):
+    def __call__(self, apihouse):
+        return CharHouseRelationMapper.__call__(self, apihouse.members, apihouse)
 
 class SeatMapper(HousePossessionMapper):
     def __call__(self, apihouse):
-        return self.for_loop(apihouse.seats, apihouse)
+        return HousePossessionMapper.__call__(self, apihouse.seats, apihouse)
 
 class TitleMapper(HousePossessionMapper):
     def __call__(self, apihouse):
-        return self.for_loop(apihouse.titles, apihouse)
+        return HousePossessionMapper.__call__(self, apihouse.titles, apihouse)
 
 class WeaponMapper(HousePossessionMapper):
     def __call__(self, apihouse):
-        return self.for_loop(apihouse.weapons, apihouse)
+        return HousePossessionMapper.__call__(self, apihouse.weapons, apihouse)
 
 class AliasMapper(CharacterPossessionMapper):
     def __call__(self, apichar):
-        return self.for_loop(apichar.aliases, apichar)
+        return CharacterPossessionMapper.__call__(self, apichar.aliases, apichar)
 
 class TitleMapperChar(CharacterPossessionMapper):
     def __call__(self, apichar):
-        return self.for_loop(apichar.titles, apichar)
+        return CharacterPossessionMapper.__call__(self, apichar.titles, apichar)
 

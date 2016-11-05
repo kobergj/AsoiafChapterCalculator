@@ -3,47 +3,53 @@ import anapioficeandfire
 import basicgetters as bsc
 
 class ApiGetter(bsc.BasicGetter):
-    def _connect(self, outmodel):
+    def _connect(self, outmodel, cache):
         self.api = anapioficeandfire.API()
 
         self.outmodel = outmodel
+
+        self._charactercache = cache.character
+        self._housecache = cache.house
 
     def __call__(self, **apikwargs):
         inmodels = self.getmany(**apikwargs)
 
         outlist = []
         for inmodel in inmodels:
-            mod = self.parse(inmodel)
-            outlist.append(mod)
+            args = self.parse(inmodel)
+            outlist.append(self.outmodel(*args))
 
         return outlist
 
-    def getmany(self):
-        return
+    def getmany(self, **kwargs):
+        # Should Return Specific Page of Api
+        return None
 
-    def parse(self, *args):
-        return
+    def parse(self, model):
+        # Should Return Arguments for StorerModel
+        return None
 
-    def getCharName(self, url):
-        if not url:
-            return ''
+    def extractId(self, url):
+        if url:
+            return int(''.join(i for i in url if i.isdigit()))
 
-        charId = int(''.join(i for i in url if i.isdigit()))
+    def get_some(self, cache, getter, url):
+        Id = self.extractId(url)
 
-        char = self.api.get_character(id=charId)
+        if Id in cache:
+            return cache[Id]
 
-        return char.name
+        some = getter(id=Id)
 
-    def getHouseName(self, url):
-        if not url:
-            return ''
+        cache.update({Id: some})
 
-        houseId = int(''.join(i for i in url if i.isdigit()))
+        return some
 
-        house = self.api.get_house(id=houseId)
+    def get_char(self, url):
+        return self.get_some(self._charactercache, self.api.get_character, url)
 
-        return house.name
-
+    def get_house(self, url):
+        return self.get_some(self._housecache, self.api.get_house, url)
 
 class ApiCharacterGetter(ApiGetter):
     def getmany(self, **kwargs):
@@ -59,14 +65,19 @@ class ApiCharacterGetter(ApiGetter):
 
         culture = rawchar.culture
 
-        father = self.getCharName(rawchar.father)
-        mother = self.getCharName(rawchar.mother)
-        spouse = self.getCharName(rawchar.spouse)
+        father = self.get_char(rawchar.father)
+        mother = self.get_char(rawchar.mother)
+        spouse = self.get_char(rawchar.spouse)
 
         titles = rawchar.titles
         aliases = rawchar.aliases
 
-        return self.outmodel(name, gender, born, died, culture, father, mother, spouse, titles, aliases)
+        allegiances = []
+        for charUrl in rawchar.allegiances:
+            allegiances.append(self.get_char(charUrl))
+
+        return name, gender, born, died, culture, father, mother, spouse, \
+            titles, aliases, allegiances
 
 class ApiHouseGetter(ApiGetter):
     def getmany(self, **kwargs):
@@ -75,11 +86,11 @@ class ApiHouseGetter(ApiGetter):
     def parse(self, rawhouse):
         name = rawhouse.name
 
-        founder = self.getCharName(rawhouse.founder)
-        heir = self.getCharName(rawhouse.heir)
-        lord = self.getCharName(rawhouse.currentLord)
+        founder = self.get_char(rawhouse.founder)
+        heir = self.get_char(rawhouse.heir)
+        lord = self.get_char(rawhouse.currentLord)
 
-        overlord = self.getHouseName(rawhouse.overlord)
+        overlord = self.get_house(rawhouse.overlord)
 
         region = rawhouse.region
         founded = rawhouse.founded
@@ -91,6 +102,14 @@ class ApiHouseGetter(ApiGetter):
         titles = rawhouse.titles
         seats = rawhouse.seats
 
-        return self.outmodel(name, founder, heir, lord, overlord, region, founded,
-                diedout, words, coatofarms, weapons, titles, seats)
+        members = []
+        for charUrl in rawhouse.swornMembers:
+            members.append(self.get_char(charUrl))
+
+        cadets = []
+        for houseUrl in rawhouse.cadetBranches:
+            cadets.append(self.get_house(houseUrl))
+
+        return name, founder, heir, lord, overlord, region, founded, \
+            diedout, words, coatofarms, weapons, titles, seats, members, cadets
 

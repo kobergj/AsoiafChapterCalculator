@@ -114,3 +114,38 @@ class InsertPossession(InsertQuery):
 
             'insertiontime': datetime.datetime.now()
         }
+
+class InsertCharHouseRelation(InsertQuery):
+    def __init__(self, reltype):
+        InsertQuery.__init__(self, "charhouserelation")
+
+        self.reltype = reltype
+
+    def add_column_names(self, charhousemodel):
+        return {
+            "first": charhousemodel.first,
+            "sur": charhousemodel.sur,
+
+            "relationtype": self.reltype,
+
+            "house": charhousemodel.house,
+            "branch": charhousemodel.branch,
+
+            'insertiontime': datetime.datetime.now()
+        }
+
+class InsertCadetBranches(InsertQuery):
+    def __init__(self):
+        InsertQuery.__init__(self, "cadetbranches")
+
+    def add_column_names(self, cadetbranchmodel):
+            return {
+                "master": cadetbranchmodel.master,
+                "masterbranch": cadetbranchmodel.masterbranch,
+
+                "cadet": cadetbranchmodel.cadet,
+                "cadetbranch": cadetbranchmodel.cadetbranch,
+
+                'insertiontime': datetime.datetime.now()
+            }
+
